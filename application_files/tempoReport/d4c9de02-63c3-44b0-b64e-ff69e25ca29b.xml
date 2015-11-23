@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tempoReportHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <tempoReport name="Proposal Management Report" a:uuid="d4c9de02-63c3-44b0-b64e-ff69e25ca29b">
+        <a:description>A report showing proposal information.</a:description>
+        <a:uiExpr>=#&quot;_a-0000db06-6d58-8000-9ba2-011c48011c48_132604&quot;()</a:uiExpr>
+        <a:urlStub>OfqP9A</a:urlStub>
+    </tempoReport>
+    <roleMap>
+        <role name="report_viewer">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000dae1-752f-8000-9aee-01075c01075c_1501</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+</tempoReportHaul>

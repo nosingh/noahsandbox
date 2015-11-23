@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>APN_uiRecordDashboardTwoColumn</name>
+        <uuid>_a-0000d73e-9720-8000-9ba2-011c48011c48_59972</uuid>
+        <description>Returns a 2-column Record Dashboard. 'column1' and 'column2' are the arrays of Tempo components for the 1st and 2nd columns respectively. If a column is null or empty, space will still be reserved, so use APN_uiRecordDashboardOneColumn for full-width 1-column layouts. 2-column layouts will be flattened to a 1-column layout on certain mobile devices.</description>
+        <parentUuid>_a-0000d6c5-be9f-8000-ba92-010000010000_1726</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#&quot;SYSTEM_SYSRULES_dashboardLayoutColumns&quot;(columns: {
+  #&quot;SYSTEM_SYSRULES_columnLayout&quot;(contents: if(#&quot;_a-0000d62a-67b3-8000-da6f-010000010000_951&quot;(ri!column1), {}, ri!column1)),
+  #&quot;SYSTEM_SYSRULES_columnLayout&quot;(contents: if(#&quot;_a-0000d62a-67b3-8000-da6f-010000010000_951&quot;(ri!column2), {}, ri!column2))
+})</definition>
+        <namedTypedValue>
+            <name>column1</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>column2</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

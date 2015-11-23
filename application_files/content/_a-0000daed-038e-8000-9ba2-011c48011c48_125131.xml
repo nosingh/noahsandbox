@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>PM_UpdateProposalTempoMessage</name>
+        <uuid>_a-0000daed-038e-8000-9ba2-011c48011c48_125131</uuid>
+        <description></description>
+        <parentUuid>_a-0000db9b-f030-8000-9ba2-011c48011c48_5655</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!newProposal: ri!proposal,
+  local!oldProposal: ri!snapshotProposal,
+  local!listOfChanges:fn!apply(
+  #&quot;_a-0000db9b-f030-8000-9ba2-011c48011c48_5645&quot;(local!newProposal,_),
+  fn!where(
+  #&quot;_a-0000db9b-f030-8000-9ba2-011c48011c48_5640&quot;(local!oldProposal,local!newProposal)
+  )
+  ),
+  local!updatedProposalValues: if(#&quot;_a-0000d62a-67b3-8000-da6f-010000010000_950&quot;(local!listOfChanges),{},
+  #&quot;_a-0000daed-038e-8000-9ba2-011c48011c48_125136&quot;(local!oldProposal,local!newProposal)),
+  
+  local!updatedProposalLabels:fn!index(
+    {
+      &quot;-&quot;,
+      &quot;-&quot;,
+      /*&quot;-&quot;,*/
+      &quot;Proposal Name (Updated)&quot;,
+      &quot;Follow-on RFx? (Updated)&quot;,
+      &quot;RFx Type (Updated)&quot;,
+      &quot;Other Type (Updated)&quot;,
+      &quot;Have We Had Prior Contact with the Prospect? (Updated)&quot;,
+      if(ri!proposal.rfBlindStatus,&quot;Contact Details (Updated)&quot;,&quot;Business Justification (Updated)&quot;),
+      &quot;Requester (Updated)&quot;,
+      &quot;-&quot;,
+      &quot;-&quot;,
+      &quot;Why Will We Win? (Updated)&quot;,
+      &quot;Evaluator Type (Updated)&quot;,
+      &quot;Third Party Evaluator Organisation (Updated)&quot;,
+      &quot;-&quot;,
+      &quot;RFx Due Date (Updated)&quot;,
+      &quot;Proposal Status (Updated)&quot;,
+      /*&quot;Opportunity Status (Updated)&quot;,*/
+      &quot;-&quot;,
+      /*&quot;Submission Date (Updated)&quot;,*/
+      &quot;-&quot;,
+      &quot;Non-Disclosure Agreement (NDA) Status (Updated)&quot;,
+      &quot;Other NDA Status (Updated)&quot;
+    },
+    fn!where(#&quot;_a-0000db9b-f030-8000-9ba2-011c48011c48_5640&quot;(local!newProposal,local!oldProposal))
+  ),
+  local!generateMoreInfo:fn!apply(#&quot;_a-0000db9b-f030-8000-9ba2-011c48011c48_5643&quot;(_,_),fn!merge({local!updatedProposalLabels},{local!updatedProposalValues})),
+  local!generateMoreInfo
+ 
+)</definition>
+        <namedTypedValue>
+            <name>snapshotProposal</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>proposal</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>snapshotProposal</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>proposal</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+            </el>
+        </value>
+    </typedValue>
+</contentHaul>

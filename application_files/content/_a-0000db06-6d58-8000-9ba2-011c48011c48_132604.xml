@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>PM_gridForReport</name>
+        <uuid>_a-0000db06-6d58-8000-9ba2-011c48011c48_132604</uuid>
+        <description>Initial grid for proposal mgmt reporting.</description>
+        <parentUuid>_a-0000db06-6d58-8000-9ba2-011c48011c48_132569</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!region,
+  local!status:&quot;Active&quot;,
+  local!rfType,
+  local!yearPM:year(today()),
+  local!type1:1,
+  local!datasubset_orig,
+  local!datasubset,
+  local!pagingInfo_old: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(
+    startIndex: 1,
+    batchSize: -1,
+    sort: #&quot;SYSTEM_SYSRULES_sortInfo&quot;(
+      field: &quot;rfDueDate&quot;,
+      ascending: false
+    )),
+  local!pagingInfo: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(
+    startIndex: 1,
+    batchSize: 50,
+    sort: #&quot;SYSTEM_SYSRULES_sortInfo&quot;(
+      field: &quot;rfDueDate&quot;,
+      ascending: false
+    )
+    ),
+  /*Aggregations-Start*/
+  local!requesterList: index(
+    #&quot;SYSTEM_SYSRULES_queryEntity&quot;(
+      entity:#&quot;_a-0000dac7-230c-8000-9ba2-011c48011c48_115196&quot;,
+      query: #&quot;SYSTEM_SYSRULES_query&quot;(
+        aggregation: #&quot;SYSTEM_SYSRULES_queryAggregation&quot;(
+          aggregationColumns: #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(
+            field: &quot;requester&quot;,
+            isGrouping: true
+          )
+        ),
+        pagingInfo: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(
+        startIndex: 1,
+        batchSize: -1
+      )
+      )
+    ).data,&quot;requester&quot;, null
+  ),
+  local!rfxTypeList: index(
+    #&quot;SYSTEM_SYSRULES_queryEntity&quot;(
+      entity:#&quot;_a-0000dac7-230c-8000-9ba2-011c48011c48_115196&quot;,
+      query: #&quot;SYSTEM_SYSRULES_query&quot;(
+        aggregation: #&quot;SYSTEM_SYSRULES_queryAggregation&quot;(
+          aggregationColumns: #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(
+            field: &quot;rfType&quot;,
+            isGrouping: true
+          )
+        ),
+        pagingInfo: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(
+        startIndex: 1,
+        batchSize: -1
+      )
+      )
+    ).data,&quot;rfType&quot;, null
+  ),
+  local!regionList: index(
+    #&quot;SYSTEM_SYSRULES_queryEntity&quot;(
+      entity:#&quot;_a-0000dac7-230c-8000-9ba2-011c48011c48_115196&quot;,
+      query: #&quot;SYSTEM_SYSRULES_query&quot;(
+        aggregation: #&quot;SYSTEM_SYSRULES_queryAggregation&quot;(
+          aggregationColumns: #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(
+            field: &quot;groupId&quot;,
+            isGrouping: true
+          )
+        ),
+        pagingInfo: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(
+        startIndex: 1,
+        batchSize: -1
+      )
+      )
+    ).data,&quot;groupId&quot;, null
+  ),
+ 
+  local!requesterUserList: if(#&quot;_a-0000d62a-67b3-8000-da6f-010000010000_950&quot;(local!requesterList),touser({}),apply(touser(_),local!requesterList)),
+  local!requester: if(
+    contains(local!requesterUserList, loggedinUser()),
+    loggedinUser(),
+    &quot;&quot;
+  ),
+  with(
+    local!allTheRows:
+    #&quot;SYSTEM_SYSRULES_queryEntity&quot;(
+      entity:#&quot;_a-0000dac7-230c-8000-9ba2-011c48011c48_115196&quot;,
+      query: #&quot;SYSTEM_SYSRULES_query&quot;(
+      selection:{},
+      
+      pagingInfo:#&quot;SYSTEM_SYSRULES_pagingInfo&quot;(
+        startIndex: 1,
+        batchSize: -1
+      )
+      )
+    ),
+  /*Aggregations-Finish*/
+    
+    local!yearOptions:if(#&quot;_a-0000d62a-67b3-8000-da6f-010000010000_950&quot;(local!allTheRows.data),{},
+      union(year(today()),apply(year(_),local!allTheRows.data.creationDate))),
+    /*Query to get everything from PM_proposalInformation DB Table*/
+    local!datasubset_old:
+    #&quot;SYSTEM_SYSRULES_queryEntity&quot;(
+      entity:#&quot;_a-0000dac7-230c-8000-9ba2-011c48011c48_115196&quot;,
+      query: #&quot;SYSTEM_SYSRULES_query&quot;(
+      selection: #&quot;SYSTEM_SYSRULES_querySelection&quot;(
+          columns: {
+          #&quot;SYSTEM_SYSRULES_queryColumn&quot;(field: &quot;id&quot;),
+          
+          #&quot;SYSTEM_SYSRULES_queryColumn&quot;(field: &quot;proposalName&quot;),
+          #&quot;SYSTEM_SYSRULES_queryColumn&quot;(field: &quot;requester&quot;),
+          #&quot;SYSTEM_SYSRULES_queryColumn&quot;(field: &quot;creationDate&quot;),
+          
+          #&quot;SYSTEM_SYSRULES_queryColumn&quot;(field: &quot;proposalStatus&quot;),
+          
+          #&quot;SYSTEM_SYSRULES_queryColumn&quot;(field: &quot;rfFolderId&quot;),
+          #&quot;SYSTEM_SYSRULES_queryColumn&quot;(field: &quot;groupId&quot;),
+          #&quot;SYSTEM_SYSRULES_queryColumn&quot;(field: &quot;rfType&quot;),
+          #&quot;SYSTEM_SYSRULES_queryColumn&quot;(field: &quot;ifOtherRf&quot;),
+          #&quot;SYSTEM_SYSRULES_queryColumn&quot;(field: &quot;rfDueDate&quot;)
+          }
+        ),
+        logicalExpression:
+        if(
+          and(
+            #&quot;_a-0000d62a-67b3-8000-da6f-010000010000_950&quot;(local!region),
+            #&quot;_a-0000d62a-67b3-8000-da6f-010000010000_950&quot;(local!rfType),
+            #&quot;_a-0000d62a-67b3-8000-da6f-010000010000_950&quot;(local!requester),
+            #&quot;_a-0000d62a-67b3-8000-da6f-010000010000_950&quot;(local!yearPM),
+            #&quot;_a-0000d62a-67b3-8000-da6f-010000010000_950&quot;(local!status)
+          ),
+        #&quot;SYSTEM_SYSRULES_queryLogicalExpression&quot;(
+        operator: &quot;AND&quot;,
+        filters: {#&quot;SYSTEM_SYSRULES_queryFilter&quot;(field:&quot;id&quot;, operator: &quot;&lt;&gt;&quot;, value:0)}
+        ),
+        #&quot;SYSTEM_SYSRULES_queryLogicalExpression&quot;(
+        operator: &quot;AND&quot;,
+       
+        filters: {
+          if(
+          #&quot;_a-0000d62a-67b3-8000-da6f-010000010000_950&quot;(local!region),
+          {},
+          #&quot;SYSTEM_SYSRULES_queryFilter&quot;(field:&quot;groupId&quot;, operator: &quot;=&quot;, value:local!region)),
+          if(
+          #&quot;_a-0000d62a-67b3-8000-da6f-010000010000_950&quot;(local!requester),
+          {},
+          #&quot;SYSTEM_SYSRULES_queryFilter&quot;(field:&quot;requester&quot;, operator: &quot;=&quot;, value:local!requester)),
+          if(
+          #&quot;_a-0000d62a-67b3-8000-da6f-010000010000_950&quot;(local!rfType),
+          {},
+          #&quot;SYSTEM_SYSRULES_queryFilter&quot;(field:&quot;rfType&quot;, operator: &quot;=&quot;, value:local!rfType)),
+          if(
+          #&quot;_a-0000d62a-67b3-8000-da6f-010000010000_950&quot;(local!yearPM),
+          {},
+          #&quot;SYSTEM_SYSRULES_queryFilter&quot;(field:&quot;creationDate&quot;, operator: &quot;between&quot;, value:{date(local!yearPM,1,1),date(local!yearPM,12,31)})
+          ),
+          if(isnull(local!status),{},
+            if(local!status=&quot;Active&quot;,#&quot;SYSTEM_SYSRULES_queryFilter&quot;(field:&quot;proposalStatus&quot;, operator: &quot;not in&quot;, value:{&quot;Rejected&quot;}),
+            #&quot;SYSTEM_SYSRULES_queryFilter&quot;(field:&quot;proposalStatus&quot;, operator: &quot;in&quot;, value:{&quot;Rejected&quot;})
+            )
+            )
+           
+        }
+        )
+        ),
+      pagingInfo:local!pagingInfo_old
+      )
+    ),
+    /*Query Ends*/
+    
+    local!allRows:if(#&quot;_a-0000d62a-67b3-8000-da6f-010000010000_950&quot;(local!datasubset_old.data),{},#&quot;_a-0000db12-4054-8000-9ba2-011c48011c48_135290&quot;(orig_CDT:local!datasubset_old.data)),
+    
+    /*Datasubset that stores the dictionary output with pagingInfo*/
+    local!datasubset:todatasubset(local!allRows,local!pagingInfo),
+    
+    if(#&quot;_a-0000d62a-67b3-8000-da6f-010000010000_950&quot;(#&quot;_a-0000dad0-592a-8000-9ba2-011c48011c48_117037&quot;(&quot;&quot;).data),
+    #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+    firstColumnContents: {  
+    #&quot;SYSTEM_SYSRULES_paragraphField&quot;(
+      value:&quot;No data available.&quot;,
+      readOnly:true()
+    )
+    }
+    ),
+    
+    { /*Filters*/
+      #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+      firstColumnContents: {
+         #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+          label: &quot;Requester&quot;,
+          labelPosition: &quot;ADJACENT&quot;,
+          placeholderLabel: &quot;All&quot;,
+          choiceLabels: apply(#&quot;_a-0000d690-12fb-8000-0f1a-010000010000_1352&quot;(_),local!requesterList),
+          choiceValues: local!requesterList,
+          value: local!requester,
+          saveInto: {local!requester,
+          a!save(local!pagingInfo.startIndex,1)
+         
+          }
+        ),
+        #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+          label: &quot;Region&quot;,
+          labelPosition: &quot;ADJACENT&quot;,
+          placeholderLabel: &quot;All&quot;,
+          choiceLabels:apply(group(_,&quot;groupName&quot;),local!regionList),
+          choiceValues:local!regionList,
+          value: local!region,
+          saveInto: {local!region,
+          a!save(local!pagingInfo.startIndex,1)
+          
+          }
+        ),
+        #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+          label: &quot;RFx Type&quot;,
+          labelPosition: &quot;ADJACENT&quot;,
+          placeholderLabel: &quot;All&quot;,
+          choiceLabels:local!rfxTypeList,
+          choiceValues:local!rfxTypeList,
+          value: local!rfType,
+          saveInto: {local!rfType,
+          a!save(local!pagingInfo.startIndex,1)
+          
+          }
+        )
+        
+      },
+      secondColumnContents: {
+        
+        #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+          label: &quot;Year&quot;,
+          labelPosition: &quot;ADJACENT&quot;,
+          placeholderLabel: &quot;All&quot;,
+          choiceLabels:local!yearOptions,
+          choiceValues:local!yearOptions,
+          value: local!yearPM,
+          saveInto: {local!yearPM,
+          a!save(local!pagingInfo.startIndex,1)
+          
+          }
+        ),
+        #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+        label:&quot;Proposal State&quot;,
+        labelPosition: &quot;ADJACENT&quot;,
+        placeholderLabel:&quot;All&quot;,
+        choiceLabels:{&quot;Active&quot;,&quot;Inactive&quot;},
+        choiceValues:{&quot;Active&quot;,&quot;Inactive&quot;},
+        value:local!status,
+        saveInto:{local!status,
+        a!save(local!pagingInfo.startIndex,1)
+        
+        }
+      )
+        
+      }
+    ),
+    
+    #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+      firstColumnContents: {
+        
+        
+      }
+    ),
+    
+    /*Grid*/
+     if(local!datasubset.totalCount=0,
+     #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+       firstColumnContents: {
+         #&quot;SYSTEM_SYSRULES_textField&quot;(
+           value: &quot;No proposals available.&quot;,
+           readOnly: true()
+         )
+       }
+     ),
+    {
+     #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+       firstColumnContents: {
+      #&quot;SYSTEM_SYSRULES_gridField&quot;(
+      totalCount: local!datasubset.totalCount,
+      columns: {
+        #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+          label: &quot;Proposal Name&quot;,
+          field: &quot;proposalName&quot;,
+          data: index(local!datasubset.data, &quot;proposalName&quot;, null),
+          links: apply(
+            #&quot;SYSTEM_SYSRULES_recordLink&quot;(
+              Label:_,
+              recordType:#&quot;_a-0000db9b-f030-8000-9ba2-011c48011c48_5658&quot;,  
+              identifier:_
+            ),
+            merge(index(local!datasubset.data, &quot;proposalName&quot;, null),
+             index(local!datasubset.data,&quot;id&quot;, null)))
+        ),
+        #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+          label: &quot;Requester&quot;,
+          field: &quot;requester&quot;,
+          data: apply(#&quot;_a-0000d690-12fb-8000-0f1a-010000010000_1352&quot;(_), index(local!datasubset.data, &quot;requester&quot;, null)),
+          links: apply(
+            #&quot;SYSTEM_SYSRULES_userRecordLink&quot;(
+              label: &quot;&quot;,
+              user: _),
+              local!datasubset.data.requester)
+        ),
+        #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+          label: &quot;Region&quot;,
+          field: &quot;groupId&quot;,
+          data: apply(group(_,&quot;groupName&quot;),index(local!datasubset.data, &quot;groupId&quot;, null))
+        ),
+        #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+          label: &quot;RFx Type&quot;,
+          field: &quot;rfType&quot;,
+          data: index(local!datasubset.data, &quot;rfType&quot;, null)
+        ),
+        if(local!rfType=&quot;Other&quot;,
+        #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(label: &quot;Other RFx Type&quot;, field: &quot;ifOtherRf&quot;,
+          data: 
+          index(local!datasubset.data, &quot;ifOtherRf&quot;, {})
+          ),
+          {}
+        ),
+        #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(label: &quot;Request Date&quot;, field: &quot;creationDate&quot;,
+          data: 
+          apply(#&quot;_a-0000d981-73a0-8000-9ba2-011c48011c48_66825&quot;(_),index(local!datasubset.data, &quot;creationDate&quot;, {})),
+        alignment:&quot;RIGHT&quot;
+          ),
+        #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(label: &quot;Due Date&quot;, field: &quot;rfDueDate&quot;, 
+          data: 
+          apply(#&quot;_a-0000d981-73a0-8000-9ba2-011c48011c48_66825&quot;(_),index(local!datasubset.data, &quot;rfDueDate&quot;, {})),
+          alignment:&quot;RIGHT&quot;
+          ),
+     
+        #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(label: &quot;Proposal Status&quot;, field: &quot;proposalStatus&quot;, 
+          data: 
+          index(local!datasubset.data, &quot;proposalStatus&quot;, {})
+          )
+      },
+      value: local!pagingInfo,
+      saveInto:{
+      local!pagingInfo
+      }
+    )
+    }
+    )
+   }
+   )
+  }
+  )
+ )
+)
+</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

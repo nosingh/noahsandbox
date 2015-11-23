@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+  targetNamespace="https://homedev.appiancloud.com/suite/types/"
+  xmlns:tns="https://homedev.appiancloud.com/suite/types/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:complexType name="PM_proposalInformation">
+    <xsd:sequence>
+      <xsd:element name="id" nillable="true" type="xsd:int">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(nullable=false) @Id @GeneratedValue</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="uniqueId" nillable="true" type="xsd:int"/>
+      <xsd:element name="proposalName" nillable="true" type="xsd:string"/>
+      <xsd:element name="isFollowOn" nillable="true" type="xsd:boolean"/>
+      <xsd:element name="rfType" nillable="true" type="xsd:string"/>
+      <xsd:element name="ifOtherRf" nillable="true" type="xsd:string"/>
+      <xsd:element name="rfBlindStatus" nillable="true" type="xsd:boolean"/>
+      <xsd:element name="rfBlindValue" nillable="true" type="xsd:string">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(length=3000)</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="requester" nillable="true" type="xsd:string"/>
+      <xsd:element name="groupId" nillable="true" type="xsd:int"/>
+      <xsd:element name="finalApprover" nillable="true" type="xsd:string"/>
+      <xsd:element name="winReason" nillable="true" type="xsd:string">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(length=3000)</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="evalType" nillable="true" type="xsd:string"/>
+      <xsd:element name="evalOrg" nillable="true" type="xsd:string"/>
+      <xsd:element name="rfFolderId" nillable="true" type="xsd:int"/>
+      <xsd:element name="rfDueDate" nillable="true" type="xsd:dateTime"/>
+      <xsd:element name="proposalStatus" nillable="true" type="xsd:string"/>
+      <xsd:element name="creationDate" nillable="true" type="xsd:date"/>
+      <xsd:element name="newsFeedId" nillable="true" type="xsd:string"/>
+      <xsd:element name="ndaStatus" nillable="true" type="xsd:string"/>
+      <xsd:element name="ifOtherNda" nillable="true" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

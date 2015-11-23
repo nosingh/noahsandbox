@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <constant>
+        <name>APN_AlphabeticalListOfUsStateAbbreviations</name>
+        <uuid>_a-0000d73b-3c1e-8000-a2f0-010000010000_1290</uuid>
+        <description>List of US State abbreviations in alphabetical order</description>
+        <parentUuid>_a-0000d73b-3c1e-8000-a2f0-010000010000_1287</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>AK</el>
+                <el>AL</el>
+                <el>AR</el>
+                <el>AZ</el>
+                <el>CA</el>
+                <el>CO</el>
+                <el>CT</el>
+                <el>DC</el>
+                <el>DE</el>
+                <el>FL</el>
+                <el>GA</el>
+                <el>HI</el>
+                <el>IA</el>
+                <el>ID</el>
+                <el>IL</el>
+                <el>IN</el>
+                <el>KS</el>
+                <el>KY</el>
+                <el>LA</el>
+                <el>MA</el>
+                <el>MD</el>
+                <el>ME</el>
+                <el>MI</el>
+                <el>MN</el>
+                <el>MO</el>
+                <el>MS</el>
+                <el>MT</el>
+                <el>NC</el>
+                <el>ND</el>
+                <el>NE</el>
+                <el>NH</el>
+                <el>NJ</el>
+                <el>NM</el>
+                <el>NV</el>
+                <el>NY</el>
+                <el>OH</el>
+                <el>OK</el>
+                <el>OR</el>
+                <el>PA</el>
+                <el>RI</el>
+                <el>SC</el>
+                <el>SD</el>
+                <el>TN</el>
+                <el>TX</el>
+                <el>UT</el>
+                <el>VA</el>
+                <el>VT</el>
+                <el>WA</el>
+                <el>WI</el>
+                <el>WV</el>
+                <el>WY</el>
+            </value>
+        </typedValue>
+    </constant>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users>
+                <userUuid>Administrator</userUuid>
+            </users>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

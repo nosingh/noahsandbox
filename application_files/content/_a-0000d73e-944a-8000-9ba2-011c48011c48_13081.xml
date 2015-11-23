@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>APN_uiSectionOneColumn</name>
+        <uuid>_a-0000d73e-944a-8000-9ba2-011c48011c48_13081</uuid>
+        <description>Returns a one-column section. 'contents' is an array of Tempo components, which may not contain another Section. If 'contents' is empty and 'hideWhenEmpty' is true, the section will be suppressed.</description>
+        <parentUuid>_a-0000d6c5-be9f-8000-ba92-010000010000_1726</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  contentsEmpty: #&quot;_a-0000d62a-67b3-8000-da6f-010000010000_951&quot;(ri!contents),
+  hideWhenEmpty: #&quot;_a-0000d6f5-78e2-8000-3c2a-010000010000_639&quot;(ri!hideWhenEmpty, false),
+  if(and(contentsEmpty, hideWhenEmpty), {},
+    #&quot;SYSTEM_SYSRULES_sectionLayoutColumns&quot;(
+      label: ri!label,
+      columns: if(contentsEmpty, null,
+        #&quot;SYSTEM_SYSRULES_columnLayout&quot;(
+          contents: ri!contents
+        )
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>label</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>contents</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>hideWhenEmpty</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<groupHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <group>
+        <name>Proposal Management Super Viewers</name>
+        <securityMap>SECURITYMAP_PUBLIC</securityMap>
+        <uuid>_e-0000dbb0-10f8-8000-9aee-01075c01075c_27</uuid>
+        <groupTypeUuid>_f-0000dae1-752f-8000-9aee-01075c01075c_27</groupTypeUuid>
+        <description>Includes:&#xD;
+Proposal Management Team, Proposal Mgmt Final Approver</description>
+        <delegatedCreation>false</delegatedCreation>
+        <memberPolicy>MEMBERPOLICY_CLOSED</memberPolicy>
+        <viewingPolicy>VIEWINGPOLICY_LOW</viewingPolicy>
+        <attributes/>
+    </group>
+    <members>
+        <users/>
+        <groups>
+            <groupUuid>_e-0000dae1-752f-8000-9aee-01075c01075c_1500</groupUuid>
+            <groupUuid>_e-0000dbb0-10f8-8000-9aee-01075c01075c_26</groupUuid>
+        </groups>
+    </members>
+    <admins>
+        <users>
+            <userUuid>noah.singh@appian.com</userUuid>
+        </users>
+        <groups/>
+    </admins>
+    <ruleSet/>
+</groupHaul>

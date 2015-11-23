@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>APN_uiCurrency</name>
+        <uuid>_a-0000d806-c17f-8000-5892-010000010000_3420</uuid>
+        <description>Returns a Text field formatting the given value as a dollar, euro or pound symbol. 
+
+label (Optional): Text to display as label.
+instructions (Optional): Smaller text to display below the value.
+value (Required): Value to display.
+showCents (Default: True): Show cents with amount.
+separatedByCommas (Default: True): Separate amount with commas.
+typeCurrency (Required): Currency symbol to display. Use APN_CURRENCY_TYPE_DOLLAR, APN_CURRENCY_TYPE_EURO or APN_CURRENCY_TYPE_POUND.
+readOnly (Default: False): Show field as read only or not
+saveInto (Required if readOnly is toggled off): Variable where the edited value will be saved into.</description>
+        <parentUuid>_a-0000d6c5-be9f-8000-ba92-010000010000_1725</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>=load(
+    local!ammountText:ri!value,
+    #&quot;SYSTEM_SYSRULES_textField&quot;(
+        label: ri!label,
+        instructions: ri!instructions,
+        value: if(isnull(local!ammountText), &quot;N/A&quot;, #&quot;_a-0000d806-c17f-8000-5892-010000010000_3421&quot;(local!ammountText,ri!showCents,ri!useThousandsSeparator,ri!typeCurrency)),
+        readOnly:ri!readOnly,
+        saveInto:{ri!saveInto &lt;&lt; todecimal(_),local!ammountText &lt;&lt; todecimal(_)}
+    )
+)  </definition>
+        <namedTypedValue>
+            <name>label</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>instructions</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>value</name>
+            <type>
+                <name>double</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showCents</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>useThousandsSeparator</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>typeCurrency</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>readOnly</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>saveInto</name>
+            <type>
+                <name>Save?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users>
+                <userUuid>Administrator</userUuid>
+            </users>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

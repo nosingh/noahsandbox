@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<groupTypeHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <groupType>
+        <name>Proposal Management Region</name>
+        <uuid>_f-0000dae1-752f-8000-9aee-01075c01075c_26</uuid>
+        <description>Proposal Mgmt Region Group Type for The Proposal Management App.</description>
+        <attributes/>
+    </groupType>
+</groupTypeHaul>

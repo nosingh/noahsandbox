@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<recordTypeHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <recordType name="Proposal" a:uuid="ca6b66db-c20c-427b-b140-c08ae7fc9d9c">
+        <a:pluralName>Proposals</a:pluralName>
+        <a:description>List of all the proposals.</a:description>
+        <a:urlStub>0X7p1A</a:urlStub>
+        <a:source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:DataStoreEntity" a:uuid="7b938215-14a7-4264-848a-527b00553fa9@_a-0000dabd-f88d-8000-9ba2-011c48011c48_113428"/>
+        <a:listViewTemplateExpr>#&quot;_a-0000dad0-592a-8000-9ba2-011c48011c48_117253&quot;()</a:listViewTemplateExpr>
+        <a:detailViewCfg>
+            <a:nameExpr>=&quot;Summary&quot;</a:nameExpr>
+            <a:uiExpr>#&quot;_a-0000dad0-592a-8000-9ba2-011c48011c48_117257&quot;()</a:uiExpr>
+            <a:visibilityExpr>=true()</a:visibilityExpr>
+            <a:urlStub>summary</a:urlStub>
+            <a:headerExpr></a:headerExpr>
+            <a:relatedActionCfg>7f9c659f-e9b3-4db3-959e-9358da522449</a:relatedActionCfg>
+        </a:detailViewCfg>
+        <a:defaultSortInfo>
+            <field>rfDueDate</field>
+            <ascending>true</ascending>
+        </a:defaultSortInfo>
+        <a:relatedActionCfg>
+            <a:target xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:ProcessModel" a:uuid="0005dadb-9b54-8000-f92f-7f0000014e7a"/>
+            <a:contextExpr>={propId:rp!id}</a:contextExpr>
+            <a:visibilityExpr>=count(wherecontains(loggedinuser(),#&quot;_a-0000dae1-7535-8000-9ba2-011c48011c48_122900&quot;(rp!id)))&gt;0</a:visibilityExpr>
+            <a:refId>7f9c659f-e9b3-4db3-959e-9358da522449</a:refId>
+        </a:relatedActionCfg>
+        <a:isSystem>false</a:isSystem>
+        <a:dataSrcExpr></a:dataSrcExpr>
+        <a:facetsListExpr></a:facetsListExpr>
+        <a:defaultFiltersExpr></a:defaultFiltersExpr>
+        <a:security>16383</a:security>
+    </recordType>
+    <roleMap>
+        <role name="record_type_administrator">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000dbb0-10f8-8000-9aee-01075c01075c_28</groupUuid>
+            </groups>
+        </role>
+        <role name="record_type_viewer">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000dae1-752f-8000-9aee-01075c01075c_1501</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+</recordTypeHaul>

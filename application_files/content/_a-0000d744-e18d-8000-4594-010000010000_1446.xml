@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>APN_uiBarChart1SeriesFromRecordType</name>
+        <uuid>_a-0000d744-e18d-8000-4594-010000010000_1446</uuid>
+        <description>Returns a Bar Chart with a single data series and applies the specified aggregation function to the records grouped by the specified group by field.
+
+recordType (Required) The record type to query
+groupByField (Required) The field to group the record instances by 
+seriesField (Required) The field to apply the aggregation function to
+aggregationFunction (Default: COUNT) The aggregation function applied to the series field
+maxBars (default: all) The maximum number of bars shown
+label (Optional) Standard chart field label
+instructions (Optional) Standard chart field instructions
+xAxisTitle (Optional) X-Axis chart title
+yAxisTitle (Optional) Y-axis chart title
+allowDecimalAxisLabels (default: false) Allow axis labels to be decimal values
+showDataLabels (default: false) Show data labels inside each bar
+showTooltips (default: false) Show tooltips on hover (unavailable on some mobile platforms)
+labelIfNull (default: &quot;Not Specified') Label shown when the category is null</description>
+        <parentUuid>_a-0000d744-e18d-8000-4594-010000010000_1447</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  function: #&quot;_a-0000d6f5-78e2-8000-3c2a-010000010000_639&quot;(
+    ri!aggregationFunction,
+    #&quot;_a-0000d73e-944a-8000-9ba2-011c48011c48_13221&quot;
+  ),
+  query: queryrecord(
+    ri!recordType,
+    #&quot;_a-0000d73e-944a-8000-9ba2-011c48011c48_13238&quot;(
+      aggregationColumns: {
+        #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(
+          field: ri!groupByField,
+          alias: &quot;label&quot;,
+          isGrouping: true
+        ),
+        #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(
+          field: ri!seriesField,
+          alias: &quot;value&quot;,
+          function: function
+        )
+      },
+      pagingInfo: #&quot;_a-0000d73e-944a-8000-9ba2-011c48011c48_13363&quot;(
+        batchSize: #&quot;_a-0000d6f5-78e2-8000-3c2a-010000010000_639&quot;(
+          ri!maxBars,
+          - 1
+        ),
+        field: &quot;value&quot;,
+        ascending: false
+      )
+    )
+  ),
+  labelIfNull: #&quot;_a-0000d6f5-78e2-8000-3c2a-010000010000_639&quot;(
+    ri!labelIfNull,
+    &quot;Not Specified&quot;
+  ),
+  categoryApplyRule: #&quot;_a-0000d6f5-78e2-8000-3c2a-010000010000_639&quot;(
+    _,
+    labelIfNull
+  ),
+  categories: apply(
+    categoryApplyRule,
+    query.data.label
+  ),
+  #&quot;_a-0000d744-e18d-8000-4594-010000010000_1458&quot;(
+    label: ri!label,
+    instructions: ri!instructions,
+    xAxisTitle: ri!xAxisTitle,
+    yAxisTitle: ri!yAxisTitle,
+    categories: categories,
+    data: query.data.value,
+    allowDecimalAxisLabels: ri!allowDecimalAxisLabels,
+    showDataLabels: ri!showDataLabels,
+    showTooltips: ri!showTooltips
+  )
+)</definition>
+        <namedTypedValue>
+            <name>recordType</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>groupByField</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>seriesField</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>aggregationFunction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>maxBars</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>label</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>instructions</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>xAxisTitle</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>yAxisTitle</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>allowDecimalAxisLabels</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showDataLabels</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showTooltips</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>labelIfNull</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users>
+                <userUuid>Administrator</userUuid>
+            </users>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

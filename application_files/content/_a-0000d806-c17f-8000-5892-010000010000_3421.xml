@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>APN_currency</name>
+        <uuid>_a-0000d806-c17f-8000-5892-010000010000_3421</uuid>
+        <description>Returns the amount provided in one of the following currency formats: Dollar, Euro or Pound.
+  
+Currency (Required): Dollar = cons!APN_CURRENCY_TYPE_DOLLAR, Euro = cons!APN_CURRENCY_TYPE_EURO, Pound = cons!APN_CURRENCY_TYPE_POUND. 
+</description>
+        <parentUuid>_a-0000d62a-67b3-8000-da6f-010000010000_957</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>=with(
+ local!amountText:touniformstring(ri!amount),
+ local!cents:if(#&quot;_a-0000d6f5-78e2-8000-3c2a-010000010000_639&quot;(ri!showCents, true), 2, 0),
+ local!useThousandsSeparators:if(#&quot;_a-0000d6f5-78e2-8000-3c2a-010000010000_639&quot;(ri!useThousandsSeparators, true), 2, 0),
+ if(
+  isnull(ri!amount),&quot;&quot;,
+  if(
+   ri!currency=#&quot;_a-0000d806-c17f-8000-5892-010000010000_3699&quot;,dollar(ri!amount,local!cents,not(local!useThousandsSeparators)),
+   if(
+    ri!currency=#&quot;_a-0000d806-c17f-8000-5892-010000010000_3701&quot;,euro(ri!amount,local!cents,not(local!useThousandsSeparators)),
+    if(
+     ri!currency=#&quot;_a-0000d806-c17f-8000-5892-010000010000_3706&quot;,pounds(ri!amount,local!cents,not(local!useThousandsSeparators)),null())
+    )
+   )
+  )
+ )</definition>
+        <namedTypedValue>
+            <name>amount</name>
+            <type>
+                <name>double</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showCents</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>useThousandsSeparators</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>currency</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users>
+                <userUuid>Administrator</userUuid>
+            </users>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

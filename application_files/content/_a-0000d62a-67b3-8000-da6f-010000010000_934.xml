@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>APN_displayGroupOrUsername</name>
+        <uuid>_a-0000d62a-67b3-8000-da6f-010000010000_934</uuid>
+        <description>Get display for user or group based on runtime type</description>
+        <parentUuid>_a-0000d62a-67b3-8000-da6f-010000010000_957</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>=if(runtimetypeof(ri!groupOrUser) = tointeger('type!{http://www.appian.com/ae/types/2009}Group'),
+  group(togroup(ri!groupOrUser), &quot;groupName&quot;),
+  #&quot;_a-0000d690-12fb-8000-0f1a-010000010000_1352&quot;(touser(ri!groupOrUser))
+)</definition>
+        <namedTypedValue>
+            <name>groupOrUser</name>
+            <type>
+                <name>UserOrGroup</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users>
+                <userUuid>Administrator</userUuid>
+            </users>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

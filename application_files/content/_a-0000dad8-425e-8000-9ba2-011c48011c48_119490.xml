@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>PM_ucMultiFileUploadRenderField</name>
+        <uuid>_a-0000dad8-425e-8000-9ba2-011c48011c48_119490</uuid>
+        <description></description>
+        <parentUuid>_a-0000db9b-f030-8000-9ba2-011c48011c48_5655</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>=with(&#xD;
+  local!paddedArray: append(ri!files, null),&#xD;
+  #&quot;SYSTEM_SYSRULES_fileUploadField&quot;(&#xD;
+    label: if(ri!index = 1, ri!label, &quot;&quot;),&#xD;
+    labelPosition:&quot;ADJACENT&quot;,&#xD;
+    target: ri!target,&#xD;
+    value: local!paddedArray[ri!index],&#xD;
+    &#xD;
+    saveInto: {&#xD;
+      a!save(ri!files, #&quot;_a-0000dad8-425e-8000-9ba2-011c48011c48_119488&quot;(ri!files, ri!index, save!value))&#xD;
+    },&#xD;
+    required:if(#&quot;_a-0000d62a-67b3-8000-da6f-010000010000_950&quot;(ri!files),true(),false())&#xD;
+  )&#xD;
+)</definition>
+        <namedTypedValue>
+            <name>label</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>files</name>
+            <type>
+                <name>CollaborationDocument?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>target</name>
+            <type>
+                <name>CollaborationDocumentOrFolder</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

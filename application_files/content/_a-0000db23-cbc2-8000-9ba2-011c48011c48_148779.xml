@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>ABA_cleanFolderName</name>
+        <uuid>_a-0000db23-cbc2-8000-9ba2-011c48011c48_148779</uuid>
+        <description></description>
+        <parentUuid>_a-0000d8a5-3b66-8000-9ba2-011c48011c48_45812</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  local!specialChar1:{&quot;\&quot;},
+  local!specialChar2:{&quot;/&quot;},
+  local!specialChar3:{&quot;;&quot;},
+  local!specialChar4:{&quot;,&quot;},
+  local!specialChar5:{&quot;:&quot;},
+  local!specialChar6:char(34),
+  local!specialChar7:{&quot;“&quot;},
+  local!specialChar8:{&quot;|&quot;},
+  local!specialChar9:{&quot;?&quot;},
+  local!specialChar10:{&quot;'&quot;},
+  local!specialChar11:{&quot;’&quot;},
+  local!specialChar12:{&quot;&gt;&quot;},
+  local!specialChar13:{&quot;&lt;&quot;},
+  local!specialChar14:{&quot;*&quot;},
+  
+local!a1:stripwith(ri!name,local!specialChar1),
+local!a2:stripwith(local!a1,local!specialChar2),
+local!a3:stripwith(local!a2,local!specialChar3),
+local!a4:stripwith(local!a3,local!specialChar4),
+local!a5:stripwith(local!a4,local!specialChar5),
+local!a6:stripwith(local!a5,local!specialChar6),
+local!a7:stripwith(local!a6,local!specialChar7),
+local!a8:stripwith(local!a7,local!specialChar8),
+local!a9:stripwith(local!a8,local!specialChar9),
+local!a10:stripwith(local!a9,local!specialChar10),
+local!a11:stripwith(local!a10,local!specialChar11),
+local!a12:stripwith(local!a11,local!specialChar12),
+local!a13:stripwith(local!a12,local!specialChar13),
+local!a14:stripwith(local!a13,local!specialChar14),
+local!a14
+)</definition>
+        <namedTypedValue>
+            <name>name</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

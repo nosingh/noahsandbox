@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>APN_uiLineChartFromRecordType</name>
+        <uuid>_a-0000d806-c17f-8000-5892-010000010000_3373</uuid>
+        <description>Returns a Line Chart with a single data series and applies the specified aggregation function to the records grouped by the specified group by field.
+
+recordType (Required) The record type to query
+groupByField (Required) The field to group the record instances by 
+seriesField (Required) The field to apply the aggregation function to
+aggregationFunction (Default: COUNT) The aggregation function applied to the series field
+sortAscending (Default: true) Ascending sort for the seriesField
+label (Optional) Text to display at the top of the chart
+instructions (Optional) smaller text to display below the label
+seriesLabel (Optional) label for series
+xAxisTitle (Optional) X-Axis chart title
+yAxisTitle (Optional) Y-axis chart title
+yAxisMax (Optional) Value that determines the maxiumn length of the horizontal axis regardless of values, otherwise the length is determined by the largest data point
+yAxisMin (Optional) Value that determines the minimum length of the horizontal axis regardless of values
+showLegend (Default: true) Show legend below the chart associating each label value with its color in the chart
+showDataLabels (Default: false) Determines if the values are displayed next to each line point.
+showTooltips (Default: true) Show tooltip will display the value for a line point when a user hovers below it. 
+allowDecimalAxisLabels (Default: false) Allows y-axis values to display as decimal numbers, rather than integers
+</description>
+        <parentUuid>_a-0000d806-c17f-8000-5892-010000010000_3654</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  local!query: queryrecord(
+    ri!recordType,
+    #&quot;_a-0000d73e-944a-8000-9ba2-011c48011c48_13238&quot;(
+      aggregationColumns: {
+        #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(
+          field: ri!groupByField,
+          alias: &quot;label&quot;,
+          isGrouping: true
+        ),
+        #&quot;_a-0000d73e-944a-8000-9ba2-011c48011c48_13330&quot;(
+          field: ri!seriesField,
+          alias: &quot;value&quot;
+        )
+      },
+      pagingInfo: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(
+        startIndex: 1,
+        batchSize: - 1,
+        sort: #&quot;SYSTEM_SYSRULES_sortInfo&quot;(
+          field: &quot;label&quot;,
+          ascending: #&quot;_a-0000d6f5-78e2-8000-3c2a-010000010000_639&quot;(
+            ri!sortAscending,
+            true
+          )
+        )
+      )
+    )
+  ),
+  #&quot;SYSTEM_SYSRULES_lineChartField&quot;(
+    label: ri!label,
+    instructions: ri!instructions,
+    categories: local!query.data.label,
+    series: #&quot;SYSTEM_SYSRULES_chartSeries&quot;(
+      label: ri!seriesLabel,
+      data: local!query.data.value
+    ),
+    xAxisTitle: ri!xAxisTitle,
+    yAxisTitle: ri!yAxisTitle,
+    yAxisMax: ri!yAxisMax,
+    yAxisMin: ri!yAxisMin,
+    showLegend: ri!showLegend,
+    showDataLabels: ri!showDataLabels,
+    showToolTips: ri!showToolTips,
+    allowDecimalAxisLabels: ri!allowDecimalAxisLabels
+  )
+)</definition>
+        <namedTypedValue>
+            <name>recordType</name>
+            <type>
+                <name>RecordType</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>groupByField</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>seriesField</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>aggregationFunction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>sortAscending</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>label</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>instructions</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>seriesLabel</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>xAxisTitle</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>yAxisTitle</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>yAxisMax</name>
+            <type>
+                <name>double</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>yAxisMin</name>
+            <type>
+                <name>double</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showLegend</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showDataLabels</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showToolTips</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>allowDecimalAxisLabels</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users>
+                <userUuid>Administrator</userUuid>
+            </users>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>PM_calculateUniqueNumber</name>
+        <uuid>_a-0000dad0-592a-8000-9ba2-011c48011c48_117043</uuid>
+        <description></description>
+        <parentUuid>_a-0000db9b-f030-8000-9ba2-011c48011c48_5655</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>=
+
+with(
+local!index:1,
+
+local!tMonth:month(today()),
+local!tYr:year(today()),
+local!max:#&quot;_a-0000dad0-592a-8000-9ba2-011c48011c48_117039&quot;(),
+if(isnull(local!max),
+tointeger(concat(local!tYr,#&quot;_a-0000dad0-592a-8000-9ba2-011c48011c48_117047&quot;(local!tMonth),&quot;001&quot;)),
+
+{
+if(month(#&quot;_a-0000dad0-592a-8000-9ba2-011c48011c48_117097&quot;(local!max))=local!tMonth,
+tointeger(concat(year(#&quot;_a-0000dad0-592a-8000-9ba2-011c48011c48_117097&quot;(local!max)),#&quot;_a-0000dad0-592a-8000-9ba2-011c48011c48_117047&quot;(month(#&quot;_a-0000dad0-592a-8000-9ba2-011c48011c48_117097&quot;(local!max))),#&quot;_a-0000dad0-592a-8000-9ba2-011c48011c48_117045&quot;(#&quot;_a-0000dad0-592a-8000-9ba2-011c48011c48_117069&quot;(#&quot;_a-0000dad0-592a-8000-9ba2-011c48011c48_117037&quot;(local!max).data.uniqueId)+1))),
+if(month(#&quot;_a-0000dad0-592a-8000-9ba2-011c48011c48_117097&quot;(local!max))&lt;&gt;local!tMonth,
+tointeger(concat(local!tYr,#&quot;_a-0000dad0-592a-8000-9ba2-011c48011c48_117047&quot;(local!tMonth),&quot;001&quot;)),
+{}
+
+)
+
+)
+}
+)
+)
+</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="true" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="true" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

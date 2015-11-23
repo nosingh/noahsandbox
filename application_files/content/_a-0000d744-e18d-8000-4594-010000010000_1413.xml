@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>APN_uiPieChartFromRecordType</name>
+        <uuid>_a-0000d744-e18d-8000-4594-010000010000_1413</uuid>
+        <description>Returns a Pie Chart for a given Record Type, grouping by one field, and performing an aggregation function over another field.
+
+recordType (Required) The record type to query
+groupByField (Required) The record field to group by
+seriesField (Required) The record field to apply the aggregation function to
+aggregationFunction (Default: COUNT) The aggregation function to apply to the seriesField.
+label (Optional) Pie chart label
+instructions (Optional) Pie chart instructions
+showDataLabels (Default: false) Shows data labels
+showTooltips (Default: false) Shows tooltips on hover (not available on some mobile devices)
+showAsPercentages (Default: false) Shows the data values as percentages of the total
+labelIfNull (default: &quot;Not Specified&quot;) Label displayed when the pie slice is null.</description>
+        <parentUuid>_a-0000d73e-944a-8000-9ba2-011c48011c48_13205</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  query: queryrecord(
+    ri!recordType,
+    #&quot;_a-0000d73e-944a-8000-9ba2-011c48011c48_13238&quot;(
+      aggregationColumns: {
+        #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(
+          field: ri!groupByField,
+          alias: &quot;label&quot;,
+          isGrouping: true
+        ),
+        #&quot;_a-0000d73e-944a-8000-9ba2-011c48011c48_13330&quot;(
+          field: ri!seriesField,
+          alias: &quot;value&quot;
+        )
+      },
+      pagingInfo: #&quot;_a-0000d73e-944a-8000-9ba2-011c48011c48_13363&quot;(
+        batchSize: - 1,
+        field: &quot;value&quot;,
+        ascending: false
+      )
+    )
+  ),
+  labelIfNull: #&quot;_a-0000d6f5-78e2-8000-3c2a-010000010000_639&quot;(
+    ri!labelIfNull,
+    &quot;Not Specified&quot;
+  ),
+  dataLabelRule: #&quot;_a-0000d6f5-78e2-8000-3c2a-010000010000_639&quot;(
+    _,
+    labelIfNull
+  ),
+  dataLabels: apply(
+    dataLabelRule,
+    query.data.label
+  ),
+  #&quot;_a-0000d73e-944a-8000-9ba2-011c48011c48_13191&quot;(
+    label: ri!label,
+    instructions: ri!instructions,
+    dataLabels: dataLabels,
+    data: query.data.value,
+    showDataLabels: ri!showDataLabels,
+    showTooltips: ri!showTooltips,
+    showAsPercentage: ri!showAsPercentage
+  )
+)</definition>
+        <namedTypedValue>
+            <name>recordType</name>
+            <type>
+                <name>RecordType</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>groupByField</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>seriesField</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>aggregationFunction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>label</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>instructions</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showDataLabels</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showTooltips</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showAsPercentage</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>labelIfNull</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users>
+                <userUuid>Administrator</userUuid>
+            </users>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

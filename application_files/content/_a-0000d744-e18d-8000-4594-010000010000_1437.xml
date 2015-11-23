@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>APN_uiPieChartWithOtherSliceFromRecordType</name>
+        <uuid>_a-0000d744-e18d-8000-4594-010000010000_1437</uuid>
+        <description>Returns a Pie Chart for a given Record Type, grouping by one field, counting the number of records per instance of the grouped field, and constraining the results of the pie chart to the specified number of maximum slices through using an &quot;Other&quot; slice.
+
+recordType (Required) The record type to query
+groupByField (Required) The record field to group by
+maxSlices (Default: 15, min: 2) Maximum number of slices displayed; includes &quot;Other&quot; slice
+label (Optional) Pie chart label
+instructions (Optional) Pie chart instructions
+showDataLabels (Default: false) Shows data labels
+showTooltips (Default: false) Shows tooltips on hover (not available on some mobile devices)
+showAsPercentages (Default: false) Shows the data values as percentages of the total
+labelIfNull (default: &quot;Not Specified&quot;) Label displayed when the pie slice is null.</description>
+        <parentUuid>_a-0000d73e-944a-8000-9ba2-011c48011c48_13205</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  maxSlices: #&quot;_a-0000d6f5-78e2-8000-3c2a-010000010000_639&quot;(
+    ri!maxSlices,
+    15
+  ),
+  queryData: queryrecord(
+    ri!recordType,
+    #&quot;_a-0000d73e-944a-8000-9ba2-011c48011c48_13238&quot;(
+      aggregationColumns: {
+        #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(
+          field: ri!groupByField,
+          alias: &quot;label&quot;,
+          isGrouping: true
+        ),
+        #&quot;_a-0000d73e-944a-8000-9ba2-011c48011c48_13330&quot;(
+          field: ri!groupByField,
+          alias: &quot;value&quot;
+        )
+      },
+      pagingInfo: #&quot;_a-0000d73e-944a-8000-9ba2-011c48011c48_13363&quot;(
+        batchSize: maxSlices,
+        field: &quot;value&quot;,
+        ascending: false
+      )
+    )
+  ).data,
+  totalRecords: queryrecord(
+    ri!recordType,
+    #&quot;_a-0000d73e-944a-8000-9ba2-011c48011c48_13209&quot;(
+      pagingInfo: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(
+        startIndex: 1,
+        batchSize: 1,
+        sort: null
+      )
+    )
+  ).totalCount,
+  missingRecords: totalRecords - sum(
+    queryData.value
+  ),
+  otherRequired: missingRecords &gt; 0,
+  finalQueryData: if(
+    otherRequired,
+    remove(
+      queryData,
+      maxSlices
+    ),
+    queryData
+  ),
+  otherValue: totalRecords - sum(
+    finalQueryData.value
+  ),
+  dataLabels: append(
+    finalQueryData.label,
+    if(
+      otherRequired,
+      &quot;Other&quot;,
+      {}
+    )
+  ),
+  dataValues: append(
+    finalQueryData.value,
+    if(
+      otherRequired,
+      otherValue,
+      {}
+    )
+  ),
+  labelIfNull: #&quot;_a-0000d6f5-78e2-8000-3c2a-010000010000_639&quot;(
+    ri!labelIfNull,
+    &quot;Not Specified&quot;
+  ),
+  dataLabelRule: #&quot;_a-0000d6f5-78e2-8000-3c2a-010000010000_639&quot;(
+    _,
+    labelIfNull
+  ),
+  finalDataLabels: apply(
+    dataLabelRule,
+    dataLabels
+  ),
+  #&quot;_a-0000d73e-944a-8000-9ba2-011c48011c48_13191&quot;(
+    label: ri!label,
+    instructions: ri!instructions,
+    dataLabels: finalDataLabels,
+    data: dataValues,
+    showDataLabels: ri!showDataLabels,
+    showTooltips: ri!showTooltips,
+    showAsPercentage: ri!showAsPercentage
+  )
+)</definition>
+        <namedTypedValue>
+            <name>recordType</name>
+            <type>
+                <name>RecordType</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>groupByField</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>maxSlices</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>label</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>instructions</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showDataLabels</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showTooltips</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showAsPercentage</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>labelIfNull</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users>
+                <userUuid>Administrator</userUuid>
+            </users>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>PM_callDictionaryForReportGrid</name>
+        <uuid>_a-0000db12-4054-8000-9ba2-011c48011c48_135174</uuid>
+        <description></description>
+        <parentUuid>_a-0000db06-6d58-8000-9ba2-011c48011c48_132569</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+
+local!type1:1,
+
+#&quot;_a-0000db06-6d58-8000-9ba2-011c48011c48_132855&quot;(
+
+id:ri!orig.id,
+
+proposalName:ri!orig.proposalName,
+
+requester:ri!orig.requester,
+groupId:ri!orig.groupId,
+rfType:ri!orig.rfType,
+ifOtherRf:ri!orig.ifOtherRf,
+creationDate:ri!orig.creationDate,
+submissionDate:ri!orig.submissionDate,
+rfDueDate:ri!orig.rfDueDate,
+
+proposalStatus:ri!orig.proposalStatus
+)
+)</definition>
+        <namedTypedValue>
+            <name>orig</name>
+            <type>
+                <name>PM_proposalInformation</name>
+                <namespace>https://homedev.appiancloud.com/suite/types/</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>oppDetails</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

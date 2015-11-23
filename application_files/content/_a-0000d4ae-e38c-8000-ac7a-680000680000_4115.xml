@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <community>
+        <name>Proposal Management</name>
+        <uuid>_a-0000d4ae-e38c-8000-ac7a-680000680000_4115</uuid>
+        <description>Proposal mgmt app community. This was also used in the old bid decision app.</description>
+        <parentUuid>SYSTEM_COMMUNITY_ROOT</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+    </community>
+    <roleMap public="true">
+        <role allowForAll="true" inherit="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000dae1-752f-8000-9aee-01075c01075c_1500</groupUuid>
+                <groupUuid>_e-0000d398-70cf-8000-9aee-01075c01075c_6</groupUuid>
+                <groupUuid>_e-0000dae1-752f-8000-9aee-01075c01075c_1501</groupUuid>
+                <groupUuid>_e-0000dbb0-10f8-8000-9aee-01075c01075c_28</groupUuid>
+            </groups>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

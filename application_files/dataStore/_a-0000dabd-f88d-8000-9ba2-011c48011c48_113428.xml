@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dataStoreHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <dataStore>
+        <uuid>_a-0000dabd-f88d-8000-9ba2-011c48011c48_113428</uuid>
+        <name>Proposal Management</name>
+        <description></description>
+        <dataSourceKey>java:/jdbc/Appian</dataSourceKey>
+        <adaptingExplicitSqlNames>false</adaptingExplicitSqlNames>
+        <entities>
+            <entity>
+                <uuid>7b938215-14a7-4264-848a-527b00553fa9</uuid>
+                <name>PM_proposalInformation</name>
+                <type>{https://homedev.appiancloud.com/suite/types/}PM_proposalInformation</type>
+            </entity>
+            <entity>
+                <uuid>008a4d0d-2cee-466a-9ea0-849c36ab91c9</uuid>
+                <name>PM_approvals</name>
+                <type>{https://homedev.appiancloud.com/suite/types/}PM_approvals</type>
+            </entity>
+        </entities>
+    </dataStore>
+    <isPublished>true</isPublished>
+    <roleMap>
+        <role allowForAll="false" inherit="false" name="administrators">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000dbb0-10f8-8000-9aee-01075c01075c_28</groupUuid>
+            </groups>
+        </role>
+        <role allowForAll="false" inherit="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="true" inherit="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</dataStoreHaul>

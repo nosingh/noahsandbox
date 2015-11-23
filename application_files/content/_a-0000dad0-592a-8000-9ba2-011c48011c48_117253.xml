@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>PM_recordListView</name>
+        <uuid>_a-0000dad0-592a-8000-9ba2-011c48011c48_117253</uuid>
+        <description></description>
+        <parentUuid>_a-0000dad0-592a-8000-9ba2-011c48011c48_117275</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>= 
+with(
+#&quot;SYSTEM_SYSRULES_listViewItem&quot;(
+title:rf!proposalName,
+details:&quot;Due: &quot;&amp;if(isnull(rf!rfDueDate),&quot;Not Specified&quot;,rf!rfDueDate)&amp;&quot; | &quot;&amp;if(isnull(rf!requester),&quot;Not Specified&quot;,#&quot;_a-0000d690-12fb-8000-0f1a-010000010000_1352&quot;(rf!requester))&amp;&quot; | &quot;&amp;if(isnull(rf!groupId),&quot;Not Specified&quot;,group(rf!groupId,&quot;groupName&quot;))&amp;
+&quot; | Status: &quot;&amp;if(isnull(rf!proposalStatus),&quot;Not Specified&quot;,rf!proposalStatus)
+)
+)</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="true" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="true" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

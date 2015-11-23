@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>PM_summaryView</name>
+        <uuid>_a-0000dad0-592a-8000-9ba2-011c48011c48_117257</uuid>
+        <description></description>
+        <parentUuid>_a-0000dad0-592a-8000-9ba2-011c48011c48_117275</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>=load(&#xD;
+ &#xD;
+ local!accExec,&#xD;
+ local!region,&#xD;
+ local!type1:1,&#xD;
+ local!type3:3, &#xD;
+	 &#xD;
+ with(&#xD;
+  &#xD;
+	#&quot;SYSTEM_SYSRULES_dashboardLayout&quot;(&#xD;
+  firstColumnContents: {&#xD;
+    #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(&#xD;
+    label: &quot;&quot;,&#xD;
+    firstColumnContents:{&#xD;
+    &#xD;
+  #&quot;SYSTEM_SYSRULES_milestoneField&quot;(&#xD;
+			  steps: rdrop(#&quot;_a-0000dae9-78e7-8000-9ba2-011c48011c48_124953&quot;,1),&#xD;
+			  active: index({1,2,3},tointeger(#&quot;_a-0000dae9-78e7-8000-9ba2-011c48011c48_130755&quot;(rf!proposalStatus)))&#xD;
+			)&#xD;
+    }&#xD;
+	),	&#xD;
+		&#xD;
+  #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(&#xD;
+      label: &quot;Proposal Details&quot;,&#xD;
+      &#xD;
+  firstColumnContents:{&#xD;
+    #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+      label:&quot;Proposal Unique Number&quot;,&#xD;
+      labelPosition:&quot;ADJACENT&quot;,&#xD;
+      value:if(isnull(rf!uniqueId),&quot;Not Specified&quot;,rf!uniqueId),&#xD;
+      readOnly:true&#xD;
+    ),&#xD;
+     #&quot;SYSTEM_SYSRULES_linkField&quot;(&#xD;
+      label:&quot;Requester&quot;,&#xD;
+      labelPosition:&quot;ADJACENT&quot;,&#xD;
+      links:&#xD;
+      #&quot;SYSTEM_SYSRULES_userRecordLink&quot;(&#xD;
+      label:#&quot;_a-0000d690-12fb-8000-0f1a-010000010000_1352&quot;(rf!requester),&#xD;
+      user:touser(rf!requester)&#xD;
+      ),&#xD;
+      readOnly:true&#xD;
+   ),&#xD;
+   #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+          label:&quot;Evaluator Type&quot;,&#xD;
+          labelPosition:&quot;ADJACENT&quot;,&#xD;
+          value:if(isnull(rf!evalType),&quot;Not Specified&quot;,rf!evalType),&#xD;
+          saveInto:rf!evalType,&#xD;
+          readOnly:true&#xD;
+    ),&#xD;
+    &#xD;
+    #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+          label:&quot;Evaluator Organisation&quot;,&#xD;
+          labelPosition:&quot;ADJACENT&quot;,&#xD;
+          value:if(isnull(rf!evalOrg),&quot;Not Specified&quot;,rf!evalOrg),&#xD;
+          saveInto:rf!evalOrg,&#xD;
+          readOnly:true&#xD;
+    ),&#xD;
+    &#xD;
+    if(#&quot;_a-0000d62a-67b3-8000-da6f-010000010000_950&quot;(getdocumentsfromfolder(rf!rfFolderId,false())),&#xD;
+    #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+      label:&quot;Proposal Document(s)&quot;,&#xD;
+      labelPosition:&quot;ADJACENT&quot;, &#xD;
+      value:&quot;No documents available&quot;,&#xD;
+      readOnly:true&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_linkField&quot;(&#xD;
+          label:&quot;Proposal Document(s)&quot;,&#xD;
+          labelPosition:&quot;ADJACENT&quot;,&#xD;
+          links: {&#xD;
+            apply(#&quot;_a-0000dad8-425e-8000-9ba2-011c48011c48_119682&quot;(_),getdocumentsfromfolder(rf!rfFolderId,false()))&#xD;
+         &#xD;
+          }&#xD;
+    )),&#xD;
+   #&quot;SYSTEM_SYSRULES_dateTimeField&quot;(&#xD;
+      label:&quot;RFx Due Date&quot;,&#xD;
+      labelPosition:&quot;ADJACENT&quot;,&#xD;
+      instructions:&quot;The timezone for the above date and time is &quot;&amp;timezoneid()&amp;&quot;.&quot;,&#xD;
+      value:if(isnull(rf!rfDueDate),&quot;Not Specified&quot;,rf!rfDueDate),&#xD;
+      saveInto:rf!rfDueDate,&#xD;
+      readOnly:true&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+      label:&quot;Proposal Review Group&quot;,&#xD;
+      labelPosition:&quot;ADJACENT&quot;,&#xD;
+      value:group(rf!groupId,&quot;groupName&quot;),&#xD;
+      readOnly:true&#xD;
+    ),&#xD;
+    #&quot;_a-0000dac7-230c-8000-9ba2-011c48011c48_115213&quot;(propMgmt_CDT:#&quot;_a-0000dad0-592a-8000-9ba2-011c48011c48_117315&quot;()),&#xD;
+&#xD;
+    #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+      label:&quot;Proposal Status&quot;,&#xD;
+      labelPosition:&quot;ADJACENT&quot;,&#xD;
+      value:rf!proposalStatus,&#xD;
+      readOnly:true&#xD;
+    )&#xD;
+ &#xD;
+  },&#xD;
+  secondColumnContents:{&#xD;
+  &#xD;
+  #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+          label:&quot;Follow-on RFx?&quot;,&#xD;
+          labelPosition:&quot;ADJACENT&quot;,&#xD;
+          value:if(isnull(rf!isFollowOn),&quot;Not Specified&quot;,if(rf!isFollowOn,&quot;Yes&quot;,&quot;No&quot;)),&#xD;
+          saveInto:rf!isFollowOn,&#xD;
+          readOnly:true&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+          label:&quot;RFx Type&quot;,&#xD;
+          labelPosition:&quot;ADJACENT&quot;,&#xD;
+          &#xD;
+          value:if(isnull(rf!rfType),&quot;Not Specified&quot;,rf!rfType),&#xD;
+          &#xD;
+          readOnly:true&#xD;
+    ),&#xD;
+    if(rf!rfType=&quot;Other&quot;,&#xD;
+    #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+      label:&quot;Other Type&quot;,&#xD;
+      labelPosition:&quot;ADJACENT&quot;,&#xD;
+      value:rf!ifOtherRf,&#xD;
+      saveInto:rf!ifOtherRf,&#xD;
+      readOnly:true()&#xD;
+    ),{}&#xD;
+    ),&#xD;
+    &#xD;
+    #&quot;SYSTEM_SYSRULES_paragraphField&quot;(&#xD;
+      label:&quot;Why Will We Win?&quot;,&#xD;
+      labelPosition:&quot;ADJACENT&quot;,&#xD;
+      value:if(isnull(rf!winReason),&quot;Not Specified&quot;,rf!winReason),&#xD;
+      saveInto:rf!winReason,&#xD;
+      readOnly:true&#xD;
+    ),&#xD;
+    &#xD;
+    #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+          label:&quot;Non-Disclosure Agreement (NDA) Status&quot;,&#xD;
+          labelPosition:&quot;ADJACENT&quot;,&#xD;
+          &#xD;
+          value:if(isnull(rf!ndaStatus),&quot;Not Specified&quot;,rf!ndaStatus),&#xD;
+          &#xD;
+          readOnly:true&#xD;
+    ),&#xD;
+    if(rf!ndaStatus=&quot;Other&quot;,&#xD;
+    #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+      label:&quot;Other NDA Status&quot;,&#xD;
+      labelPosition:&quot;ADJACENT&quot;,&#xD;
+      value:rf!ifOtherNda,&#xD;
+      saveInto:rf!ifOtherNda,&#xD;
+      readOnly:true(),&#xD;
+      validations:{&#xD;
+        if(len(rf!ifOtherNda)&lt;=200, null, &quot;Enter no more than 200 characters.&quot;)&#xD;
+      }&#xD;
+    ),{}&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+      label:&quot;Have We Had Prior Contact with the Prospect?&quot;,&#xD;
+      labelPosition:&quot;ADJACENT&quot;,&#xD;
+      instructions:&quot;&quot;,&#xD;
+      value:if(isnull(rf!rfBlindStatus),&quot;Not Specified&quot;,if(rf!rfBlindStatus,&quot;Yes&quot;,&quot;No&quot;)),&#xD;
+      saveInto:rf!rfBlindStatus,&#xD;
+      readOnly:true&#xD;
+    ),&#xD;
+    if(#&quot;_a-0000d62a-67b3-8000-da6f-010000010000_950&quot;(rf!rfBlindStatus),{},&#xD;
+    if(rf!rfBlindStatus=true(),&#xD;
+    #&quot;SYSTEM_SYSRULES_paragraphField&quot;(&#xD;
+      label:&quot;Contact Details&quot;,&#xD;
+      labelPosition:&quot;ADJACENT&quot;,&#xD;
+      &#xD;
+      value:rf!rfBlindValue,&#xD;
+      saveInto:rf!rfBlindValue,&#xD;
+      readOnly:true()&#xD;
+      &#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_paragraphField&quot;(&#xD;
+      label:&quot;Business Justification&quot;,&#xD;
+      labelPosition:&quot;ADJACENT&quot;,&#xD;
+      &#xD;
+      value:rf!rfBlindValue,&#xD;
+      saveInto:rf!rfBlindValue,&#xD;
+      readOnly:true()&#xD;
+    )  &#xD;
+    )&#xD;
+    )&#xD;
+&#xD;
+  }&#xD;
+  )&#xD;
+&#xD;
+}&#xD;
+)&#xD;
+)&#xD;
+)&#xD;
+  &#xD;
+  </definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="true" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="true" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

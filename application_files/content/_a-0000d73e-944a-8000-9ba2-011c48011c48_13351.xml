@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>APN_queryEntityRecordForId</name>
+        <uuid>_a-0000d73e-944a-8000-9ba2-011c48011c48_13351</uuid>
+        <description>Queries a Data Store Entity-sourced Record for the given ID.
+
+*recordType (RecordType) The Record Type to query.
+field (Text) The name of the field. Default: &quot;id&quot;.
+id (Any Type) The primary key of the record.</description>
+        <parentUuid>_a-0000d73e-944a-8000-9ba2-011c48011c48_13207</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>queryrecord(ri!recordType, #&quot;_a-0000d73e-944a-8000-9ba2-011c48011c48_13209&quot;(filter: #&quot;SYSTEM_SYSRULES_queryFilter&quot;(field: #&quot;_a-0000d6f5-78e2-8000-3c2a-010000010000_639&quot;(ri!field, &quot;id&quot;), operator: &quot;=&quot;, value: ri!id)))</definition>
+        <namedTypedValue>
+            <name>recordType</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>field</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>id</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

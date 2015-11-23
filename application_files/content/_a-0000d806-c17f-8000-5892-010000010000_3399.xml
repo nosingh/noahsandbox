@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>APN_uiDisplayReadOnlyFieldTypeForValue</name>
+        <uuid>_a-0000d806-c17f-8000-5892-010000010000_3399</uuid>
+        <description>Determines which read only field type to use based on the value type</description>
+        <parentUuid>_a-0000d6c5-be9f-8000-ba92-010000010000_1778</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>fn!displayvalue(
+	typeof(ri!value), 
+	{1,2,3,7,8,9,54,55}, 
+	{#&quot;SYSTEM_SYSRULES_integerField&quot;(label:ri!label, value: ri!value), #&quot;SYSTEM_SYSRULES_floatingPointField&quot;(label:ri!label, value: ri!value), #&quot;SYSTEM_SYSRULES_textField&quot;(label:ri!label, readOnly: true, value: ri!value), #&quot;SYSTEM_SYSRULES_dateField&quot;(label:ri!label, value: ri!value), a!timeField(label:ri!label, value: ri!value),#&quot;SYSTEM_SYSRULES_dateTimeField&quot;(label:ri!label, value: ri!value), #&quot;SYSTEM_SYSRULES_dateField&quot;(label:ri!label, value: ri!value), #&quot;SYSTEM_SYSRULES_dateTimeField&quot;(label:ri!label, value: ri!value)},
+	#&quot;SYSTEM_SYSRULES_textField&quot;(label:ri!label, value: ri!value)
+)
+</definition>
+        <namedTypedValue>
+            <name>label</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>value</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users>
+                <userUuid>Administrator</userUuid>
+            </users>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

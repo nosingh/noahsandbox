@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+  targetNamespace="https://homedev.appiancloud.com/suite/types/"
+  xmlns:tns="https://homedev.appiancloud.com/suite/types/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:complexType name="PM_approvals">
+    <xsd:sequence>
+      <xsd:element name="id" nillable="true" type="xsd:int">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">
+					@Column(nullable=false)
+					@Id
+					@GeneratedValue
+		  </xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="propId" nillable="true" type="xsd:int"/>
+      <xsd:element name="approverName" nillable="true" type="xsd:string"/>
+      <xsd:element name="approvalStatus" nillable="true" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

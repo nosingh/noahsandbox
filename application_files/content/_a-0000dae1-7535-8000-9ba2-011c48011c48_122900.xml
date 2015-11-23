@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>PM_proposalModifyDetailsRelatedActionViewers</name>
+        <uuid>_a-0000dae1-7535-8000-9ba2-011c48011c48_122900</uuid>
+        <description></description>
+        <parentUuid>_a-0000db9b-f030-8000-9ba2-011c48011c48_5655</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+local!cdt:#&quot;_a-0000dad0-592a-8000-9ba2-011c48011c48_117037&quot;(ri!id).data,
+local!region:if(#&quot;_a-0000d62a-67b3-8000-da6f-010000010000_950&quot;(getdistinctusers(togroup(local!cdt.groupId))),touser({}),getdistinctusers(togroup(local!cdt.groupId))),
+
+local!pt:if(#&quot;_a-0000d62a-67b3-8000-da6f-010000010000_951&quot;(getdistinctusers(getgroupbyname(&quot;Proposal Management Team&quot;))),touser({}),getdistinctusers(getgroupbyname(&quot;Proposal Management Team&quot;))),
+local!pa:if(#&quot;_a-0000d62a-67b3-8000-da6f-010000010000_951&quot;(getdistinctusers(getgroupbyname(&quot;Proposal Management Administrators&quot;))),touser({}),getdistinctusers(getgroupbyname(&quot;Proposal Management Administrators&quot;))),
+local!requester:touser(local!cdt.requester),
+local!finalApprover:touser(getdistinctusers(getgroupbyname(&quot;Proposal Mgmt Final Approver&quot;))),
+local!manager:touser(if(#&quot;_a-0000d62a-67b3-8000-da6f-010000010000_950&quot;(supervisor(local!cdt.requester)),{},supervisor(local!cdt.requester))),
+union(local!requester,local!manager,local!finalApprover,local!region,local!pt,local!pa)
+
+)</definition>
+        <namedTypedValue>
+            <name>id</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>id</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+            </el>
+        </value>
+    </typedValue>
+</contentHaul>

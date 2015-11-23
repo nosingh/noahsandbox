@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>PM_modifyProposalForm</name>
+        <uuid>_a-0000dad8-425e-8000-9ba2-011c48011c48_119726</uuid>
+        <description></description>
+        <parentUuid>_a-0000db9b-f030-8000-9ba2-011c48011c48_5655</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+
+ local!accExec,
+ local!region:togroup(ri!propMgmt_CDT.groupId),
+ local!type1:1,
+ local!type3:3,
+ ri!files:{},
+ local!submissionDate:today(),
+with(
+  #&quot;SYSTEM_SYSRULES_formLayout&quot;(
+  label: &quot;Modify Proposal Details&quot;,
+  instructions: &quot;You may edit the proposal details here.&quot;,
+  firstColumnContents: {
+  #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+    label:&quot;&quot;,
+    firstColumnContents: {
+   
+  #&quot;SYSTEM_SYSRULES_linkField&quot;(
+    label:&quot;Proposal Name&quot;,
+    labelPosition:&quot;ADJACENT&quot;,
+    links:
+    #&quot;SYSTEM_SYSRULES_recordLink&quot;(
+              Label:ri!propMgmt_CDT.proposalName,
+              recordType:#&quot;_a-0000db9b-f030-8000-9ba2-011c48011c48_5658&quot;,  
+              identifier:ri!propMgmt_CDT.id 
+            )
+  ),
+  
+  #&quot;SYSTEM_SYSRULES_textField&quot;(
+      label:&quot;Proposal Name&quot;,
+      labelPosition:&quot;ADJACENT&quot;,
+      instructions:&quot;Pick the title from the document and enter here. &quot;&amp;&quot;Current character count: &quot;&amp;len(ri!propMgmt_CDT.proposalName)&amp;&quot;/200.&quot;,
+      value:ri!propMgmt_CDT.proposalName,
+      saveInto:ri!propMgmt_CDT.proposalName,
+      required:true,
+      validations:{
+        if(len(ri!propMgmt_CDT.proposalName)&lt;=200, null, &quot;Enter no more than 200 characters.&quot;)
+      }
+  ),
+  #&quot;SYSTEM_SYSRULES_textField&quot;(
+      label:&quot;Proposal Review Group&quot;,
+      labelPosition:&quot;ADJACENT&quot;,
+      value:group(ri!propMgmt_CDT.groupId,&quot;groupName&quot;),
+      readOnly:true
+    ),
+ 
+  #&quot;SYSTEM_SYSRULES_pickerFieldUsers&quot;(
+      label:&quot;Requester&quot;,
+      labelPosition:&quot;ADJACENT&quot;,
+      maxSelections:&quot;1&quot;,
+      value:ri!propMgmt_CDT.requester,
+      saveInto:ri!propMgmt_CDT.requester,
+      required:true
+    ),
+  #&quot;SYSTEM_SYSRULES_radioButtonField&quot;(
+      label:&quot;Evaluator&quot;,
+      labelPosition:&quot;ADJACENT&quot;,
+      instructions:&quot;Select the evaluator that is going to evaluate the RFX and make selection recommendations to the prospective client.&quot;,
+      choiceLabels:{&quot;Customer/Prospect&quot;,&quot;Third Party&quot;},
+      choiceValues:{&quot;Customer&quot;,&quot;Third Party&quot;},
+      value:ri!propMgmt_CDT.evalType,
+      saveInto:ri!propMgmt_CDT.evalType,
+      required:true
+    ),
+    if(ri!propMgmt_CDT.evalType=&quot;Third Party&quot;,
+    #&quot;SYSTEM_SYSRULES_textField&quot;(
+      label:&quot;Third Party Evaluator Organisation&quot;,
+      labelPosition:&quot;ADJACENT&quot;,
+      instructions:&quot;Current character count: &quot;&amp;len(ri!propMgmt_CDT.evalOrg)&amp;&quot;/200.&quot;,
+      value:ri!propMgmt_CDT.evalOrg,
+      saveInto:ri!propMgmt_CDT.evalOrg,
+      required:true(),
+      validations:{
+        if(len(ri!propMgmt_CDT.evalOrg)&lt;=200, null, &quot;Enter no more than 200 characters.&quot;)
+      }
+    ),
+    #&quot;SYSTEM_SYSRULES_textField&quot;(
+      label:&quot;Customer or Prospect Name&quot;,
+      labelPosition:&quot;ADJACENT&quot;,
+      instructions:&quot;Current character count: &quot;&amp;len(ri!propMgmt_CDT.evalOrg)&amp;&quot;/200.&quot;,
+      value:ri!propMgmt_CDT.evalOrg,
+      saveInto:ri!propMgmt_CDT.evalOrg,
+      required:true(),
+      validations:{
+        if(len(ri!propMgmt_CDT.evalOrg)&lt;=200, null, &quot;Enter no more than 200 characters.&quot;)
+      }
+    )
+    ),
+
+  #&quot;SYSTEM_SYSRULES_radioButtonField&quot;(
+          label:&quot;Follow-on RFx?&quot;,
+          labelPosition:&quot;ADJACENT&quot;,
+          choiceLabels:{&quot;Yes&quot;,&quot;No&quot;},
+          choiceValues:{true(),false()},
+          value:ri!propMgmt_CDT.isFollowOn,
+          saveInto:ri!propMgmt_CDT.isFollowOn,
+          required:true
+    ),
+    #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+          label:&quot;RFx Type&quot;,
+          labelPosition:&quot;ADJACENT&quot;,
+          placeholderLabel:&quot;Select the RFx type&quot;,
+          choiceLabels:#&quot;_a-0000db9b-f030-8000-9ba2-011c48011c48_5660&quot;,
+          choiceValues:#&quot;_a-0000db9b-f030-8000-9ba2-011c48011c48_5660&quot;,
+          value:ri!propMgmt_CDT.rfType,
+          saveInto:ri!propMgmt_CDT.rfType,
+          required:true
+    ),
+    if(or(ri!propMgmt_CDT.rfType&lt;&gt;&quot;Other&quot;,#&quot;_a-0000d62a-67b3-8000-da6f-010000010000_950&quot;(ri!propMgmt_CDT.rfType)),{},
+    #&quot;SYSTEM_SYSRULES_textField&quot;(
+      label:&quot;Other Type&quot;,
+      labelPosition:&quot;ADJACENT&quot;,
+      instructions:&quot; Mention the other RFx type here. &quot;&amp;&quot;Current character count: &quot;&amp;len(ri!propMgmt_CDT.ifOtherRf)&amp;&quot;/200.&quot;,
+      value:ri!propMgmt_CDT.ifOtherRf,
+      saveInto:ri!propMgmt_CDT.ifOtherRf,
+      required:true(),
+      validations:{
+        if(len(ri!propMgmt_CDT.ifOtherRf)&lt;=200, null, &quot;Enter no more than 200 characters.&quot;)
+      }
+    )),
+    #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+          label:&quot;Non-Disclosure Agreement (NDA) Status&quot;,
+          labelPosition:&quot;ADJACENT&quot;,
+          placeholderLabel:&quot;Select the status&quot;,
+          choiceLabels:#&quot;_a-0000db9b-f030-8000-9ba2-011c48011c48_5657&quot;,
+          choiceValues:#&quot;_a-0000db9b-f030-8000-9ba2-011c48011c48_5657&quot;,
+          value:ri!propMgmt_CDT.ndaStatus,
+          saveInto:ri!propMgmt_CDT.ndaStatus,
+          required:true
+    ),
+    if(or(ri!propMgmt_CDT.ndaStatus&lt;&gt;&quot;Other&quot;,#&quot;_a-0000d62a-67b3-8000-da6f-010000010000_950&quot;(ri!propMgmt_CDT.ndaStatus)),{},
+    #&quot;SYSTEM_SYSRULES_textField&quot;(
+      label:&quot;Other NDA Status&quot;,
+      labelPosition:&quot;ADJACENT&quot;,
+      instructions:&quot; Provide the other NDA status here. &quot;&amp;&quot;Current character count: &quot;&amp;len(ri!propMgmt_CDT.ifOtherNda)&amp;&quot;/200.&quot;,
+      value:ri!propMgmt_CDT.ifOtherNda,
+      saveInto:ri!propMgmt_CDT.ifOtherNda,
+      required:true(),
+      validations:{
+        if(len(ri!propMgmt_CDT.ifOtherNda)&lt;=200, null, &quot;Enter no more than 200 characters.&quot;)
+      }
+    )),
+    #&quot;SYSTEM_SYSRULES_radioButtonField&quot;(
+      label:&quot;Have We Had Prior Contact with the Prospect?&quot;,
+      labelPosition:&quot;ADJACENT&quot;,
+      instructions:&quot;&quot;,
+      choiceLabels:{&quot;Yes&quot;,&quot;No&quot;},
+      choiceValues:{true(),false()},
+      value:ri!propMgmt_CDT.rfBlindStatus,
+      saveInto:ri!propMgmt_CDT.rfBlindStatus,
+      required:true
+    ),
+    if(#&quot;_a-0000d62a-67b3-8000-da6f-010000010000_950&quot;(ri!propMgmt_CDT.rfBlindStatus),{},
+    if(ri!propMgmt_CDT.rfBlindStatus=true(),
+    #&quot;SYSTEM_SYSRULES_paragraphField&quot;(
+      label:&quot;Contact Details&quot;,
+      labelPosition:&quot;ADJACENT&quot;,
+      instructions:&quot;Provide name, title, organisation and responsibility of the contact. &quot;&amp;&quot;Current character count: &quot;&amp;len(ri!propMgmt_CDT.rfBlindValue)&amp;&quot;/2500.&quot;,
+      value:ri!propMgmt_CDT.rfBlindValue,
+      saveInto:ri!propMgmt_CDT.rfBlindValue,
+      required:true(),
+      validations:{
+        if(len(ri!propMgmt_CDT.rfBlindValue)&lt;=2500, null, &quot;Enter no more than 2500 characters.&quot;)
+      }
+    ),
+    #&quot;SYSTEM_SYSRULES_paragraphField&quot;(
+      label:&quot;Business Justification&quot;,
+      labelPosition:&quot;ADJACENT&quot;,
+      instructions:&quot;Provide business justification for pursuing a blind RFx. &quot;&amp;&quot;Current character count: &quot;&amp;len(ri!propMgmt_CDT.rfBlindValue)&amp;&quot;/2500.&quot;,
+      value:ri!propMgmt_CDT.rfBlindValue,
+      saveInto:ri!propMgmt_CDT.rfBlindValue,
+      required:true(),
+      validations:{
+        if(len(ri!propMgmt_CDT.rfBlindValue)&lt;=2500, null, &quot;Enter no more than 2500 characters.&quot;)
+      }
+    )  
+    )
+    ),
+#&quot;SYSTEM_SYSRULES_paragraphField&quot;(
+      label:&quot;Why Will We Win?&quot;,
+      labelPosition:&quot;ADJACENT&quot;,
+      instructions:&quot;Current character count: &quot;&amp;len(ri!propMgmt_CDT.winReason)&amp;&quot;/2500.&quot;,
+      value:ri!propMgmt_CDT.winReason,
+      saveInto:ri!propMgmt_CDT.winReason,
+      required:true(),
+      validations:{
+        if(len(ri!propMgmt_CDT.winReason)&lt;=2500, null, &quot;Enter no more than 2500 characters.&quot;)
+      }
+    ),
+    
+    if(#&quot;_a-0000d62a-67b3-8000-da6f-010000010000_950&quot;(getdocumentsfromfolder(ri!propMgmt_CDT.rfFolderId,false())),
+    #&quot;SYSTEM_SYSRULES_textField&quot;(
+    label: &quot;Current Proposal Document(s)&quot;,
+    labelPosition:&quot;ADJACENT&quot;, 
+    value:&quot;No documents available&quot;,
+    readOnly:true()
+    ),
+     #&quot;SYSTEM_SYSRULES_linkField&quot;(
+          label:&quot;Current Proposal Document(s)&quot;,
+          labelPosition:&quot;ADJACENT&quot;,
+          links: {
+            apply(#&quot;_a-0000dad8-425e-8000-9ba2-011c48011c48_119682&quot;(_),getdocumentsfromfolder(ri!propMgmt_CDT.rfFolderId,false()))
+          
+          }
+    )
+    ),
+    #&quot;SYSTEM_SYSRULES_applyComponents&quot;(
+        function: #&quot;_a-0000dae1-7535-8000-9ba2-011c48011c48_122633&quot;(label: &quot;Additional RFx Document(s)&quot;, files:ri!files, target:tofolder(ri!propMgmt_CDT.rfFolderId), index: _),
+        array: 1 + fn!enumerate(1 + length(ri!files))
+      ),
+      #&quot;SYSTEM_SYSRULES_textField&quot;(
+        label: &quot;&quot;,
+        labelPosition:&quot;ADJACENT&quot;,
+        instructions:&quot;Upload files.&quot;,
+       
+        readOnly: true
+      ),
+   
+    #&quot;SYSTEM_SYSRULES_dateTimeField&quot;(
+      label:&quot;RFx Due Date&quot;,
+      labelPosition:&quot;ADJACENT&quot;,
+      instructions:&quot;The timezone for the entered date and time is &quot;&amp;timezoneid()&amp;&quot;.&quot;,
+      value:if(isnull(ri!propMgmt_CDT.rfDueDate),&quot;Not Specified&quot;,ri!propMgmt_CDT.rfDueDate),
+      saveInto:ri!propMgmt_CDT.rfDueDate,
+      required:true
+      
+    ),
+    #&quot;SYSTEM_SYSRULES_linkField&quot;(
+   label:&quot;Discussion on Tempo&quot;,
+   labelPosition:&quot;ADJACENT&quot;,
+   links:
+   #&quot;SYSTEM_SYSRULES_newsEntryLink&quot;(
+    label:&quot;Link to News Feed&quot;,
+    entry:ri!propMgmt_CDT.newsFeedId
+    )
+  ),
+    #&quot;SYSTEM_SYSRULES_radioButtonField&quot;(
+    label:&quot;Proposal Status&quot;,
+    labelPosition:&quot;ADJACENT&quot;,
+    choiceLabels:#&quot;_a-0000db9b-f030-8000-9ba2-011c48011c48_5659&quot;,
+    choiceValues:#&quot;_a-0000db9b-f030-8000-9ba2-011c48011c48_5659&quot;,
+    value:ri!propMgmt_CDT.proposalStatus,
+    saveInto:ri!propMgmt_CDT.proposalStatus,
+    required:true
+    )
+    
+    }
+  )
+  
+  },
+  
+ buttons: #&quot;SYSTEM_SYSRULES_ButtonLayout&quot;(
+    primaryButtons: {
+      #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(
+        label: &quot;Submit&quot;,
+        style: &quot;PRIMARY&quot;,
+        value:#&quot;_a-0000da19-2603-8000-9ba2-011c48011c48_84302&quot;,
+        saveInto:{
+          ri!buttonValue
+        },
+        disabled:false()
+      )
+    },
+		secondaryButtons: {		  
+				#&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(
+						label: &quot;Cancel&quot;,
+						style: &quot;NORMAL&quot;,
+						value: #&quot;_a-0000da19-2603-8000-9ba2-011c48011c48_84304&quot;,
+						saveInto: {
+						ri!buttonValue
+						
+						},
+						skipValidation: true()
+				  )	  
+		}
+  )
+)
+)
+)</definition>
+        <namedTypedValue>
+            <name>propMgmt_CDT</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonValue</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>doc</name>
+            <type>
+                <name>CollaborationDocument</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>files</name>
+            <type>
+                <name>CollaborationDocument?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="a:Expression"/>
+                    <a:nameRef>propMgmt_CDT</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>buttonValue</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="a:CollaborationDocument"/>
+                    <a:nameRef>doc</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <a:nameRef>files</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+            </el>
+        </value>
+    </typedValue>
+</contentHaul>

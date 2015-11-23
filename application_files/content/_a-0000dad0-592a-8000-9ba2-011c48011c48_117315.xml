@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>PM_proposalInfoCDTFields</name>
+        <uuid>_a-0000dad0-592a-8000-9ba2-011c48011c48_117315</uuid>
+        <description>'type!{https://homedev.appiancloud.com/suite/types/}PM_proposalInformation'</description>
+        <parentUuid>_a-0000db9b-f030-8000-9ba2-011c48011c48_5655</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>'type!{https://homedev.appiancloud.com/suite/types/}PM_proposalInformation'(
+id:rf!id, 
+uniqueId:rf!uniqueId,   
+proposalName:rf!proposalName,  
+isFollowOn:rf!isFollowOn,  
+rfType:rf!rfType,  
+ifOtherRf:rf!ifOtherRf, 
+isRfBlind:rf!rfBlindStatus, 
+businessJust:rf!rfBlindValue, 
+finalApprover:rf!finalApprover,  
+groupId:rf!groupId, 
+requester:rf!requester,  
+winReason:rf!winReason,   
+rfFolderId:rf!rfFolderId,  
+rfDueDate:rf!rfDueDate,   
+proposalStatus:rf!proposalStatus,  
+creationDate:rf!creationDate,
+newsFeedId:rf!newsFeedId,
+ndaStatus:rf!ndaStatus,
+ifOtherNda:rf!ifOtherNda
+)  
+  </definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="true" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="true" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

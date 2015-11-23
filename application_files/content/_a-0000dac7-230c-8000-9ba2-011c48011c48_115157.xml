@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>PM_FinalProposalBidDecisionForm</name>
+        <uuid>_a-0000dac7-230c-8000-9ba2-011c48011c48_115157</uuid>
+        <description></description>
+        <parentUuid>_a-0000db9b-f030-8000-9ba2-011c48011c48_5655</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+
+ local!accExec,
+ local!partners,
+ local!more,
+ local!type1:1,
+ local!type3:3,
+with(
+  #&quot;SYSTEM_SYSRULES_formLayout&quot;(
+  label: &quot;Finalize Proposal Bid Decision&quot;,
+  instructions: &quot;Review and make final decision whether to bid on this proposal.&quot;,
+  firstColumnContents: {
+  #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+    label:&quot;&quot;,
+    firstColumnContents: {
+ 
+  #&quot;_a-0000dac7-230c-8000-9ba2-011c48011c48_115213&quot;(ri!propMgmt_CDT),
+  #&quot;SYSTEM_SYSRULES_linkField&quot;(
+    label:&quot;Proposal Name&quot;,
+    labelPosition:&quot;ADJACENT&quot;,
+    links:
+    #&quot;SYSTEM_SYSRULES_recordLink&quot;(
+              Label:ri!propMgmt_CDT.proposalName,
+              recordType:#&quot;_a-0000db9b-f030-8000-9ba2-011c48011c48_5658&quot;,  
+              identifier:ri!propMgmt_CDT.id 
+            )
+  ),
+  
+  #&quot;SYSTEM_SYSRULES_textField&quot;(
+      label:&quot;Proposal Review Group&quot;,
+      labelPosition:&quot;ADJACENT&quot;,
+      value:group(ri!propMgmt_CDT.groupId,&quot;groupName&quot;),
+      readOnly:true
+    ),
+  #&quot;SYSTEM_SYSRULES_linkField&quot;(
+      label:&quot;Requester&quot;,
+      labelPosition:&quot;ADJACENT&quot;,
+      links:
+      #&quot;SYSTEM_SYSRULES_userRecordLink&quot;(
+      label:#&quot;_a-0000d690-12fb-8000-0f1a-010000010000_1352&quot;(ri!propMgmt_CDT.requester),
+      user:touser(ri!propMgmt_CDT.requester)
+      ),
+      readOnly:true
+   ),
+   #&quot;SYSTEM_SYSRULES_textField&quot;(
+          label:&quot;Evaluator Type&quot;,
+          labelPosition:&quot;ADJACENT&quot;,
+          value:if(isnull(ri!propMgmt_CDT.evalType),&quot;Not Specified&quot;,ri!propMgmt_CDT.evalType),
+          saveInto:ri!propMgmt_CDT.evalType,
+          readOnly:true
+    ),
+    if(ri!propMgmt_CDT.evalType=&quot;Customer&quot;,{},
+    #&quot;SYSTEM_SYSRULES_textField&quot;(
+          label:&quot;Evaluator Organisation&quot;,
+          labelPosition:&quot;ADJACENT&quot;,
+          value:if(isnull(ri!propMgmt_CDT.evalOrg),&quot;Not Specified&quot;,ri!propMgmt_CDT.evalOrg),
+          saveInto:ri!propMgmt_CDT.evalOrg,
+          readOnly:true
+    )),
+  #&quot;SYSTEM_SYSRULES_textField&quot;(
+          label:&quot;Follow-on RFx?&quot;,
+          labelPosition:&quot;ADJACENT&quot;,
+          value:if(isnull(ri!propMgmt_CDT.isFollowOn),&quot;Not Specified&quot;,if(ri!propMgmt_CDT.isFollowOn,&quot;Yes&quot;,&quot;No&quot;)),
+          saveInto:ri!propMgmt_CDT.isFollowOn,
+          readOnly:true
+    ),
+    #&quot;SYSTEM_SYSRULES_textField&quot;(
+          label:&quot;RFx Type&quot;,
+          labelPosition:&quot;ADJACENT&quot;,
+          
+          value:if(isnull(ri!propMgmt_CDT.rfType),&quot;Not Specified&quot;,ri!propMgmt_CDT.rfType),
+          
+          readOnly:true
+    ),
+     if(ri!propMgmt_CDT.rfType=&quot;Other&quot;,
+    #&quot;SYSTEM_SYSRULES_textField&quot;(
+      label:&quot;Other Type&quot;,
+      labelPosition:&quot;ADJACENT&quot;,
+      
+      value:ri!propMgmt_CDT.ifOtherRf,
+      saveInto:ri!propMgmt_CDT.ifOtherRf,
+      readOnly:true(),
+      validations:{
+        if(len(ri!propMgmt_CDT.ifOtherRf)&lt;=200, null, &quot;Enter no more than 200 characters.&quot;)
+      }
+    ),{}
+    ),
+    #&quot;SYSTEM_SYSRULES_textField&quot;(
+          label:&quot;Non-Disclosure Agreement (NDA) Status&quot;,
+          labelPosition:&quot;ADJACENT&quot;,
+          
+          value:if(isnull(ri!propMgmt_CDT.ndaStatus),&quot;Not Specified&quot;,ri!propMgmt_CDT.ndaStatus),
+          
+          readOnly:true
+    ),
+    if(ri!propMgmt_CDT.ndaStatus=&quot;Other&quot;,
+    #&quot;SYSTEM_SYSRULES_textField&quot;(
+      label:&quot;Other NDA Status&quot;,
+      labelPosition:&quot;ADJACENT&quot;,
+      value:ri!propMgmt_CDT.ifOtherNda,
+      saveInto:ri!propMgmt_CDT.ifOtherNda,
+      readOnly:true(),
+      validations:{
+        if(len(ri!propMgmt_CDT.ifOtherNda)&lt;=200, null, &quot;Enter no more than 200 characters.&quot;)
+      }
+    ),{}
+    ),
+    #&quot;SYSTEM_SYSRULES_linkField&quot;(
+          label:&quot;Proposal Document(s)&quot;,
+          labelPosition:&quot;ADJACENT&quot;,
+          links: {
+            apply(#&quot;_a-0000dad8-425e-8000-9ba2-011c48011c48_119682&quot;(_),getdocumentsfromfolder(ri!propMgmt_CDT.rfFolderId,false()))
+          
+          }
+    ),
+    #&quot;SYSTEM_SYSRULES_textField&quot;(
+      label:&quot;Have We Had Prior Contact with the Prospect?&quot;,
+      labelPosition:&quot;ADJACENT&quot;,
+      instructions:&quot;&quot;,
+      value:if(isnull(ri!propMgmt_CDT.rfBlindStatus),&quot;Not Specified&quot;,if(ri!propMgmt_CDT.rfBlindStatus,&quot;Yes&quot;,&quot;No&quot;)),
+      saveInto:ri!propMgmt_CDT.rfBlindStatus,
+      readOnly:true
+    ),
+    if(#&quot;_a-0000d62a-67b3-8000-da6f-010000010000_950&quot;(ri!propMgmt_CDT.rfBlindStatus),{},
+    if(ri!propMgmt_CDT.rfBlindStatus=true(),
+    #&quot;SYSTEM_SYSRULES_paragraphField&quot;(
+      label:&quot;Contact Details&quot;,
+      labelPosition:&quot;ADJACENT&quot;,
+      
+      value:ri!propMgmt_CDT.rfBlindValue,
+      saveInto:ri!propMgmt_CDT.rfBlindValue,
+      readOnly:true()
+      
+    ),
+    #&quot;SYSTEM_SYSRULES_paragraphField&quot;(
+      label:&quot;Business Justification&quot;,
+      labelPosition:&quot;ADJACENT&quot;,
+      
+      value:ri!propMgmt_CDT.rfBlindValue,
+      saveInto:ri!propMgmt_CDT.rfBlindValue,
+      readOnly:true()
+    )  
+    )
+    ),
+    #&quot;SYSTEM_SYSRULES_paragraphField&quot;(
+      label:&quot;Why Will We Win?&quot;,
+      labelPosition:&quot;ADJACENT&quot;,
+      value:if(isnull(ri!propMgmt_CDT.winReason),&quot;Not Specified&quot;,ri!propMgmt_CDT.winReason),
+      saveInto:ri!propMgmt_CDT.winReason,
+      readOnly:true
+    ),
+    #&quot;SYSTEM_SYSRULES_dateTimeField&quot;(
+      label:&quot;RFx Due Date&quot;,
+      labelPosition:&quot;ADJACENT&quot;,
+      instructions:&quot;The timezone for the above date and time is &quot;&amp;timezoneid()&amp;&quot;.&quot;,
+      value:if(isnull(ri!propMgmt_CDT.rfDueDate),&quot;Not Specified&quot;,ri!propMgmt_CDT.rfDueDate),
+      saveInto:ri!propMgmt_CDT.rfDueDate,
+      readOnly:true
+    ),
+    #&quot;SYSTEM_SYSRULES_linkField&quot;(
+   label:&quot;Discussion on Tempo&quot;,
+   labelPosition:&quot;ADJACENT&quot;,
+   links:
+    #&quot;SYSTEM_SYSRULES_newsEntryLink&quot;(
+    label:&quot;Link to News Feed&quot;,
+    entry:ri!propMgmt_CDT.newsFeedId
+    )
+  ),
+    #&quot;SYSTEM_SYSRULES_radioButtonField&quot;(
+     label:&quot;Proposal Bid Decision&quot;,
+     labelPosition:&quot;ADJACENT&quot;,
+     choiceLabels:{&quot;Bid&quot;,&quot;No Bid&quot;,&quot;Need More Information&quot;},
+     choiceValues:{&quot;BID&quot;,&quot;NO BID&quot;,&quot;NEED MORE INFO&quot;},
+     value:ri!selection,
+     saveInto:ri!selection,
+     required:true
+    ),
+    #&quot;SYSTEM_SYSRULES_paragraphField&quot;(
+      label:&quot;Comments&quot;,
+      labelPosition:&quot;ADJACENT&quot;,
+      instructions:&quot;Enter your comments here for your decision. Your decision and comments will be added to the original news post for this proposal. If you request more information, you will get another task to make your final decision. &quot;&amp;&quot;Current character count: &quot;&amp;len(ri!comments)&amp;&quot;/3500.&quot;,
+      value:ri!comments,
+      saveInto:ri!comments,
+      required:if(wherecontains(ri!selection,{&quot;NO OPINION&quot;,&quot;BID&quot;})&gt;0,false(),true()),
+      validations:{
+        if(len(ri!comments)&lt;=3500, null, &quot;Enter no more than 3500 characters.&quot;)
+      }
+    )
+  }
+  )
+  
+  },
+  
+ buttons: 
+ #&quot;SYSTEM_SYSRULES_ButtonLayout&quot;(
+   
+    primaryButtons: {
+     
+      #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(
+        label: &quot;Submit&quot;,
+        style: &quot;PRIMARY&quot;,
+        value:&quot;Submit&quot;,
+        
+        saveInto:{
+          ri!buttonValue
+        },
+        disabled:false()
+        
+      )
+     
+    }
+
+  )
+)
+)
+)</definition>
+        <namedTypedValue>
+            <name>propMgmt_CDT</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>buttonValue</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>question</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>comments</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>feedEntryId</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>selection</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="a:Expression"/>
+                    <a:nameRef>propMgmt_CDT</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>buttonValue</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>question</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>comments</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>feedEntryId</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>selection</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+            </el>
+        </value>
+    </typedValue>
+</contentHaul>

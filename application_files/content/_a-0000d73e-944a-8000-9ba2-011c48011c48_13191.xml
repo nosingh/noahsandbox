@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>APN_uiPieChart</name>
+        <uuid>_a-0000d73e-944a-8000-9ba2-011c48011c48_13191</uuid>
+        <description>Returns a Pie Chart Component.
+
+label (Optional) Standard field label
+instructions (Optional) Standard field instructions
+dataLabels (Optional) The pie slice labels. Null labels will display as &quot;[Series: N]&quot;
+data (Optional) A parallel array to dataLabels of the pie slice values.
+showDataLabels (Default: false) renders inline data labels.
+showTooltips (Default: false) renders data labels on hover (unavailable on some mobile platforms)
+showAsPercentage (Default: false) renders numbers as percentages instead of absolute values.
+labelPosition: (Text) Optional text to determine where the label appears. Valid values include &quot;COLLAPSED&quot; to remove the label and flush the component to the left, &quot;ABOVE&quot; (default) to display the label above the component and flush the component to the left, and &quot;ADJACENT&quot; to display the label near the top to the left of the component.</description>
+        <parentUuid>_a-0000d73e-944a-8000-9ba2-011c48011c48_13205</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>=#&quot;SYSTEM_SYSRULES_pieChartField&quot;(
+  label: ri!label,
+  labelPosition: ri!labelPosition,
+  instructions: ri!instructions,
+  series: apply(#&quot;SYSTEM_SYSRULES_chartSeries&quot;(label:_,data:_), merge(#&quot;_a-0000d6f5-78e2-8000-3c2a-010000010000_639&quot;(ri!dataLabels, {}), #&quot;_a-0000d6f5-78e2-8000-3c2a-010000010000_639&quot;(ri!data, {}))),
+  showDataLabels: ri!showDataLabels,
+  showAsPercentage: ri!showAsPercentage,
+  showTooltips: ri!showTooltips
+)</definition>
+        <namedTypedValue>
+            <name>label</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>instructions</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>dataLabels</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>data</name>
+            <type>
+                <name>Decimal?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showDataLabels</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showAsPercentage</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>showTooltips</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>labelPosition</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

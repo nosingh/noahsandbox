@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>APN_queryAggregation</name>
+        <uuid>_a-0000d73e-944a-8000-9ba2-011c48011c48_13238</uuid>
+        <description>Returns a Query object. 
+
+aggregationColumns (AggregationColumn array) construct the Query's Aggregation.
+filter (LogicalExpression or QueryFilter) (optional) refines the query results.
+pagingInfo (optional) Default: APN_pagingInfoAll().</description>
+        <parentUuid>_a-0000d73e-944a-8000-9ba2-011c48011c48_13207</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#&quot;SYSTEM_SYSRULES_query&quot;(
+  aggregation: #&quot;SYSTEM_SYSRULES_queryAggregation&quot;(ri!aggregationColumns),
+  'logicalExpression|filter': ri!filter,  
+  pagingInfo: #&quot;_a-0000d6f5-78e2-8000-3c2a-010000010000_639&quot;(ri!pagingInfo, #&quot;_a-0000d73e-944a-8000-9ba2-011c48011c48_13241&quot;())
+)</definition>
+        <namedTypedValue>
+            <name>aggregationColumns</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>filter</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>pagingInfo</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>
